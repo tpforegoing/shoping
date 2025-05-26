@@ -1,0 +1,12 @@
+td.mat-column-actions,
+td.mat-column-icon {
+    width: 15px;
+    padding-right: 6px;
+  }
+  
+  .mat-header-row, .mat-header-cell {
+    position: sticky;
+    top: 0;
+    background: var(--mat-sys-surface); // або білий
+    z-index: 10;
+  }

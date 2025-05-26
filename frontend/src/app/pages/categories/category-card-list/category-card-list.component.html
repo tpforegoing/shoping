@@ -1,0 +1,21 @@
+<div class="card-grid">
+  @for (cat of categories; track cat.id) {
+    <mat-card class="category-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>{{ cat.icon }}</mat-icon>
+        <mat-card-title [innerHTML]="cat.title | highlight: filter"></mat-card-title>
+        <mat-card-subtitle [innerHTML]="cat.full_title | highlight: filter"></mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p [innerHTML]="cat.code | highlight: filter"></p>
+      </mat-card-content>
+
+      <mat-card-actions class="card-actions">
+        <button mat-stroked-button color="primary" (click)="onEdit(cat)">Edit</button>
+        <span class="spacer"></span>
+        <button mat-stroked-button class="delete-btn" (click)="onDelete(cat)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

@@ -1,0 +1,46 @@
+<div class="order-form-container">
+  <h2>{{ isEditMode ? 'Редагування' : 'Створення' }} замовлення</h2>
+  
+  @if (loading || loadingCustomers) {
+    <div class="loading-container">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Клієнт</mat-label>
+        <mat-select formControlName="customer">
+          @for (customer of customers; track customer.id) {
+            <mat-option [value]="customer.id">
+              {{ customer.name }} ({{ customer.code }})
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="orderForm.get('customer')?.invalid && (submitAttempted || orderForm.get('customer')?.touched)">
+          {{ getErrorMessage('customer') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Статус</mat-label>
+        <mat-select formControlName="status">
+          @for (option of statusOptions; track option.value) {
+            <mat-option [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="orderForm.get('status')?.invalid && (submitAttempted || orderForm.get('status')?.touched)">
+          {{ getErrorMessage('status') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <div class="form-actions">
+        <button mat-button type="button" (click)="onCancel()">Скасувати</button>
+        <button mat-raised-button color="primary" type="submit">
+          {{ isEditMode ? 'Оновити' : 'Створити' }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

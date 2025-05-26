@@ -1,0 +1,28 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: mat.$blue-palette,
+    density: 0
+  ), $overrides: (
+    primary-container: #e3f2fd,
+    on-primary-container: #0d47a1,
+  ));
+}
+
+.blue-theme {
+  @include mat.theme(( color: mat.$blue-palette, density: 0 ));
+}
+.green-theme {
+  @include mat.theme(( color: mat.$green-palette, density: 0 ));
+}
+.red-theme {
+  @include mat.theme(( color: mat.$red-palette, density: 0 ));
+}
+.orange-theme {
+  @include mat.theme(( color: mat.$orange-palette, density: 0 ));
+}
+// .purple-theme {
+//   @include mat.theme(( color: mat.$deep_purple-palette, density: 0 ));
+// }

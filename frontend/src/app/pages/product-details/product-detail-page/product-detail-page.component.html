@@ -1,0 +1,25 @@
+<div class="product-detail-page-container">
+  <!-- Loading indicator -->
+  <div *ngIf="loading()" class="loading-container">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+  
+  <!-- Error message -->
+  <div *ngIf="error() && !loading()" class="error-container">
+    <p>Error: {{ error()?.message }}</p>
+  </div>
+  
+  <!-- Product details content -->
+  <div *ngIf="product() && !loading()" class="product-detail-content">
+    <!-- Product Overview Section -->
+    <app-product-overview 
+      [product]="product()"
+      (back)="onBack()"
+    ></app-product-overview>
+    
+    <!-- Product Price Section -->
+    <app-product-price-section
+      [productId]="productId()"
+    ></app-product-price-section>
+  </div>
+</div>

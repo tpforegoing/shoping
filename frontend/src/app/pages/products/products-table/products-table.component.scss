@@ -1,0 +1,55 @@
+
+.no-price-row {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+td.mat-column-icon {  
+  width: 15px;
+  padding-right: 6px;
+}
+
+.mat-header-row, .mat-header-cell {
+  position: sticky;  top: 0;
+  background: var(--mat-sys-surface); // або білий  z-index: 10;
+}
+.delete-item {  
+  color: var(--mat-sys-color-error);
+  border-color: var(--mat-sys-color-error);
+  // color: var(--mat-sys-color-error);
+}
+table {  width: 100%;
+}
+.mat-column-description {  max-width: 300px;
+  white-space: nowrap;  overflow: hidden;
+  text-overflow: ellipsis;}
+.mat-column-title {
+  min-width: 150px;}
+.mat-column-category {
+  min-width: 120px;}
+.mat-column-price {
+  min-width: 100px;
+  text-align: right;
+}
+td.mat-column-actions {
+  width: 120px;
+  padding-right: 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

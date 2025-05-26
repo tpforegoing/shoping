@@ -1,0 +1,33 @@
+# Python / Django
+**/env/
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.env
+.env/
+*.bak
+db.sqlite3
+
+# Node.js
+node_modules/
+dist/
+.env
+.env.*
+
+# Angular
+.angular/
+*.tsbuildinfo
+
+# Docker
+*.pid
+*.pid.lock
+*.sock
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

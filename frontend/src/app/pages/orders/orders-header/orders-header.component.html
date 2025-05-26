@@ -1,0 +1,39 @@
+<div class="header-container">
+  <div class="search-container">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Пошук замовлень</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input 
+        matInput 
+        [ngModel]="filter" 
+        (ngModelChange)="onFilterChange($event)"
+        placeholder="Введіть номер або статус">
+      @if (filter) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }        
+    </mat-form-field>
+    <div class="actions-container">
+      @if (!isMobile) {
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="onAdd()">
+            
+          <mat-icon>add</mat-icon>
+          <span>Нове замовлення</span>
+        </button>
+      } @else {
+        <button 
+          mat-icon-button 
+          color="primary" 
+          (click)="onAdd()"
+          class="isMobile">
+          <mat-icon>add</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,31 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  
+  }
+  
+  .price-card {
+    display: block;
+  }
+  
+  .card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .spacer {
+    flex: 1;
+  }
+  
+  .delete-btn {
+    color: var(--mat-sys-color-error);
+    border-color: var(--mat-sys-color-error);
+  }
+  
+  .active-price {
+    color: green;
+    font-weight: 500;
+  }

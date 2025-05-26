@@ -1,0 +1,53 @@
+<div class="client-form-container">
+  <h2>{{ isEditMode() ? 'Редагування' : 'Додавання' }} клієнта</h2>
+  
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Код</mat-label>
+        <input matInput formControlName="code" placeholder="Введіть код клієнта">
+        <mat-error *ngIf="clientForm.get('code')?.invalid && (clientForm.get('code')?.touched)">
+          {{ getErrorMessage('code') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ім'я</mat-label>
+        <input matInput formControlName="name" placeholder="Введіть ім'я клієнта">
+        <mat-error *ngIf="clientForm.get('name')?.invalid && (clientForm.get('name')?.touched)">
+          {{ getErrorMessage('name') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Телефон</mat-label>
+        <input matInput formControlName="phone_no" placeholder="Введіть номер телефону">
+        <mat-error *ngIf="clientForm.get('phone_no')?.invalid && (clientForm.get('phone_no')?.touched)">
+          {{ getErrorMessage('phone_no') }}
+        </mat-error>
+      </mat-form-field>
+      @if (error()?.message) {
+          <mat-error>
+              @if (error()?.message) {
+                  <div>Помилка зберігання!</div>
+              }             
+              @if (error()?.fieldErrors) {
+                  @for (entry of error()?.fieldErrors || {} | keyvalue; track entry.key) {
+                      <div>{{ entry.value }}</div>
+                    }
+                }
+          </mat-error>
+      }
+      <div class="form-actions">
+        <button mat-button type="button" (click)="onBack()">Назад</button>
+        <button mat-flat-button color="primary" type="submit">
+          {{ isEditMode() ? 'Оновити' : 'Створити' }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

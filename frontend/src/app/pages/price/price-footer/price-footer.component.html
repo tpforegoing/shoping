@@ -1,0 +1,15 @@
+
+@if (isMobile) {
+  @if (isLoadingMore) {
+      <div class="text-center mt-4">
+        <button mat-button (click)="loadMore.emit()">Завантажити ще</button>
+    </div>
+  }
+} @else{
+  <mat-paginator
+    [length]="total"
+    [pageSize]="50"
+    [pageIndex]="active_page - 1"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+}

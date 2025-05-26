@@ -1,0 +1,49 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+
+}
+
+.order-card {
+  margin-bottom: 16px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.status-draft {
+  background-color: #e0e0e0;
+  color: #757575;
+}
+
+.status-submitted {
+  background-color: #bbdefb;
+  color: #1976d2;
+}
+
+.status-paid {
+  background-color: #c8e6c9;
+  color: #4caf50;
+}
+
+.status-cancelled {
+  background-color: #ffcdd2;
+  color: #f44336;
+}

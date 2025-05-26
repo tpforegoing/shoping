@@ -1,0 +1,28 @@
+@if (loading) {
+  <div class="loading-container">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+} @else {
+  @if (!isMobile) {
+    <app-products-table
+      [products]="products"
+      [filter]="filter"
+      (view)="onView($event)"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (addToCart)="onAddToCart($event)"
+    />
+  } @else {
+    <app-products-card-list
+      [products]="products"
+      [filter]="filter"
+      [isMobile]="isMobile"
+      (view)="onView($event)"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+      (addToCart)="onAddToCart($event)"
+      (loadMore)="onLoadMore()"
+      (loadPrevious)="onLoadPrevious()"
+    />
+  }
+}

@@ -1,0 +1,15 @@
+.clients-layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.clients-main-scroll {
+  flex: 1;
+  overflow: auto;
+}
+
+.clients-footer {
+  flex-shrink: 0;
+}

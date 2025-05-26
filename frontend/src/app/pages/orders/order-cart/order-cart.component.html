@@ -1,0 +1,78 @@
+<div class="cart-container">
+  <h2>Кошик</h2>
+  
+  @if (cartItems().length === 0) {
+    <div class="empty-cart">
+      <mat-icon class="empty-cart-icon">shopping_cart</mat-icon>
+      <p>Ваш кошик порожній</p>
+      <button mat-raised-button color="primary" (click)="continueShopping()">
+        Продовжити покупки
+      </button>
+    </div>
+  } @else {
+    <mat-card>
+      <mat-card-content>
+        <div class="cart-items">
+          @for (item of cartItems(); track item.id) {
+            <div class="cart-item">
+              <div class="item-details">
+                <h3>{{ item.product.title }}</h3>
+                <p class="item-price">{{ item.price }} грн</p>
+              </div>
+              
+              <div class="item-quantity">
+                <button mat-icon-button (click)="updateQuantity(item, item.quantity - 1)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <span class="quantity">{{ item.quantity }}</span>
+                <button mat-icon-button (click)="updateQuantity(item, item.quantity + 1)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+              
+              <div class="item-total">
+                {{ (parseFloat(item.price) * item.quantity).toFixed(2) }} грн
+              </div>
+              
+              <button mat-icon-button color="warn" (click)="removeItem(item)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <mat-divider></mat-divider>
+          }
+        </div>
+        
+        <div class="cart-summary">
+          <div class="cart-total">
+            <span>Загальна сума:</span>
+            <span class="total-price">{{ cartTotal().toFixed(2) }} грн</span>
+          </div>
+          
+          <div class="customer-select">
+            <mat-form-field appearance="outline">
+              <mat-label>Виберіть клієнта</mat-label>
+              <mat-select [(ngModel)]="selectedCustomerId">
+                @for (customer of customers; track customer.id) {
+                  <mat-option [value]="customer.id">
+                    {{ customer.name }} ({{ customer.code }})
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div class="cart-actions">
+            <button mat-button color="warn" (click)="clearCart()">
+              <mat-icon>remove_shopping_cart</mat-icon>
+              Очистити кошик
+            </button>
+            <button mat-raised-button color="primary" (click)="createOrder()" [disabled]="!selectedCustomerId">
+              <mat-icon>check</mat-icon>
+              Оформити замовлення
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

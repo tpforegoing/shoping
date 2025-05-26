@@ -1,0 +1,52 @@
+<div class="client-detail-container">
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+      <ng-container *ngIf="customer() as cust">
+
+        <mat-card class="client-card">
+          <mat-card-header>
+        <mat-icon mat-card-avatar>person</mat-icon>
+        <mat-card-title>{{ cust.name }}</mat-card-title>
+        <mat-card-subtitle>Код: {{ cust.code }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <div class="detail-item">
+          <span class="detail-label">Телефон:</span>
+          <span class="detail-value">{{ cust.phone_no || 'Не вказано' }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="detail-label">Користувач:</span>
+          <span class="detail-value">{{ cust.user?.username || 'Не прив\'язано' }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="detail-label">Створено:</span>
+          <span class="detail-value">{{ cust.created ? (cust.created | date:'medium') : '—' }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="detail-label">Оновлено:</span>
+          <span class="detail-value">{{ cust.updated ? (cust.updated | date:'medium') : '—'}}</span>
+        </div>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button mat-button (click)="onBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Назад
+        </button>
+        <button mat-button color="primary" (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+          Редагувати
+        </button>
+      </mat-card-actions>
+      </mat-card>
+    </ng-container>
+
+  }
+</div>

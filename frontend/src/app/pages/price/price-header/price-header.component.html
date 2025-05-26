@@ -1,0 +1,38 @@
+<div class="header-container">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Пошук ціни</mat-label>
+      <input matInput [ngModel]="filter" (ngModelChange)="onFilterChange($event)" />
+      @if (filter) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="clear()">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+    
+    <!-- Кнопка з випадаючим меню для статусу -->
+    <button mat-button [matMenuTriggerFor]="statusMenu">
+      <mat-icon>filter_list</mat-icon>
+      <!-- <span>{{ getStatusLabel() }}</span> -->
+    </button>
+    <mat-menu #statusMenu="matMenu">
+      <button mat-menu-item (click)="onIsActiveFilterChange(null)">
+        <mat-icon>list</mat-icon>
+        <span>Всі</span>
+      </button>
+      <button mat-menu-item (click)="onIsActiveFilterChange(true)">
+        <mat-icon>check_circle</mat-icon>
+        <span>Активні</span>
+      </button>
+      <button mat-menu-item (click)="onIsActiveFilterChange(false)">
+        <mat-icon>cancel</mat-icon>
+        <span>Неактивні</span>
+      </button>
+    </mat-menu>
+    @if (canAdd) {
+      @if(!isMobile) {
+        <button mat-raised-button color="primary" (click)="add.emit()">Додати ціну</button>
+      } @else {
+        <button mat-mini-fab (click)="add.emit()" class="add-button"><mat-icon>add</mat-icon></button>
+      }
+    }
+  </div>

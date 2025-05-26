@@ -1,0 +1,56 @@
+.overview-card {
+  margin-bottom: 1.5rem;
+  max-width: 1024px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.overview-column {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.1rem;
+  }
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.info-label {
+  font-weight: 500;
+  min-width: 120px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.info-value {
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .overview-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .info-item {
+    flex-direction: column;
+  }
+  
+  .info-label {
+    margin-bottom: 0.25rem;
+  }
+}
+
+  .spacer {
+    flex: 1;
+  }
+  

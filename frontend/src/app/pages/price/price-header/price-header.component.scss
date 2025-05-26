@@ -1,0 +1,17 @@
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    height: 64px;
+    padding: 0.5rem;
+  }
+  
+  .filter-field {
+    flex: 1;
+  }
+  
+  .add-button {
+    align-self: center;
+  }

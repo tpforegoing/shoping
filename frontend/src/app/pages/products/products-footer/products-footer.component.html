@@ -1,0 +1,16 @@
+<mat-paginator
+    *ngIf="!isMobile"
+    [length]="total"
+    [pageSize]="50"
+    [pageIndex]="active_page - 1"
+    (page)="pageChange.emit($event.pageIndex)"
+></mat-paginator>
+
+<!-- <div  class="foter-actions" *ngIf="isMobile"> -->
+<div  *ngIf="isMobile" class="text-center mt-4">
+    <button mat-button (click)="loadNext.emit()">Load more</button>
+    <!-- <span class="spacer"></span>
+    <span class=>Зависів:{{total}}</span>
+    <span class="spacer"></span>
+    <button mat-button (click)="loadNext.emit()">Далі</button> -->
+</div>

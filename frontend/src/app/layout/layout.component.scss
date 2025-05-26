@@ -1,0 +1,118 @@
+@use '@angular/material' as mat;
+
+mat-toolbar {
+  position: relative;
+  z-index: 5;
+  justify-content: space-between;
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .username {
+    margin-left: 4px;
+    font-weight: 500;
+  }
+
+  .app-title {
+    margin-left: 8px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary),
+    container-text-color: var(--mat-sys-on-primary),
+    title-text-font: var(--mat-sys-title-large-fon),
+    title-text-line-height: var(--mat-sys-title-large-line-height),
+    title-text-size: var(--mat-sys-title-large-size),
+    title-text-tracking : var(--mat-sys-title-large-tracking),
+    title-text-weight: var(--mat-sys-title-large-weight),
+    
+  ));
+
+  @include mat.icon-button-overrides((
+    icon-color: var(--mat-sys-on-primary),
+  ));
+
+  @include mat.badge-overrides((
+    background-color: var(--mat-sys-outline),
+    text-color: var(--mat-sys-on-error),
+    disabled-state-background-color: var(--mat-sys-error),
+    disabled-state-text-color: var(--mat-sys-on-error),
+    text-font: var(--mat-sys-label-small-font),
+    text-size: var(--mat-sys-label-small-size),
+    text-weight: var(--mat-sys-label-small-weight),
+    large-size-text-size: var(--mat-sys-label-small-size),
+
+    ));
+   
+    @include mat.menu-overrides((
+      // Колірні властивості (Color)
+      // Колір фону меню / Задній фон меню
+      container-color: var(--md-sys-color-surface-container-high),
+      // Колір тексту пункту 
+      item-label-text-color: var(--mat-sys-on-surface),
+      // Колір іконки пункту
+      item-icon-color: var(--mat-sys-on-surface-variant),
+      // Колір лінії-роздільника / Колір тонкої лінії між групами
+      divider-color: var(--mat-sys-surface-variant),
+      // Колір фону при hover / Тіло при наведенні
+      item-hover-state-layer-color: var(--mat-sys-on-surface),
+      // Колір фону при focus
+      item-focus-state-layer-color: var(--mat-sys-on-surface),
+      
+      // Типографіка (Typography)
+      // Шрифт пункту (font-family)
+      item-label-text-font: var(--mat-sys-label-large-font),
+      // Розмір тексту (font-size) / Зменшити/збільшити шрифт
+      item-label-text-size: var(--mat-sys-label-large-size),
+      // 	Letter-spacing
+      item-label-text-tracking: var(--mat-sys-label-large-tracking),
+      // line-height
+      item-label-text-line-height: var(--mat-sys-label-large-line-height),
+      // Жирність тексту (font-weight)
+      item-label-text-weight: var(--mat-sys-label-large-weight),
+      
+      container-elevation-shadow: var( var(--mat-sys-level3))
+    ));
+}
+
+
+mat-sidenav{
+  border: 1px solid rgb(204, 204, 204);
+  @include mat.sidenav-overrides((
+
+    container-background-color: var(--mat-sys-surface),
+    container-text-color: var(--mat-sys-on-surface-variant),
+    content-background-color: var(--mat-sys-background),
+    content-text-color: var(--mat-sys-on-background),
+  ));
+
+}
+
+.theme-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.color-preview {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.content {
+  padding: 16px;
+  height: 100%;
+  transition: all 500ms ease-in-out;
+}
+
+.side-conteiner {
+  height: calc(100vh - 64px); // 100vh;
+}
+
+.side-list{
+  height: 100%;
+  transition: all 500ms ease-in-out;
+}

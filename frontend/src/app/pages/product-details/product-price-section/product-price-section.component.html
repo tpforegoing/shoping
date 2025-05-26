@@ -1,0 +1,56 @@
+<div class="price-section-card">
+  <app-price-header
+    [filter]="filter()"
+    [isActiveFilter]="isActiveFilter()"
+    [isMobile]="isMobile()"  
+    [canAdd]=true       
+    (filterChange)="onFilterChanged($event)"
+    (isActiveFilterChange)="onIsActiveFilterChange($event)"
+    (add)="onAdd()"
+  />
+  
+  <div class="price-section-container">
+    <!-- Loading indicator -->
+    <div *ngIf="loading()" class="loading-container">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+    
+    <!-- Price content -->
+    <div *ngIf="!loading()" class="price-content">
+      <!-- Desktop view (table) -->
+      <app-price-list-table
+        *ngIf="!isMobile()"
+        [prices]="prices()"
+        [filter]="filter()"
+        (edit)="onEdit($event)" 
+        (delete)="onDelete($event)"  
+      ></app-price-list-table>
+      
+      <!-- Mobile view (cards) -->
+      <app-price-list-card
+        *ngIf="isMobile()"
+        [prices]="prices()"
+        [filter]="filter()"
+        (edit)="onEdit($event)" 
+        (delete)="onDelete($event)"    
+      ></app-price-list-card>
+      
+      <!-- No data message -->
+      <div *ngIf="prices().length === 0" class="no-data">
+        <p>Немає доступних цін</p>
+      </div>
+    </div>
+    
+    <!-- Paginator Footer -->
+    <app-price-footer
+      *ngIf="prices().length > 0"
+      [total]="prices().length"
+      [total]="total()"
+      [active_page]="page()"
+      (pageChange)="onPageChanged($event)"
+      (loadMore)="onLoadMore()"
+    ></app-price-footer>
+  </div>
+</div>
+
+

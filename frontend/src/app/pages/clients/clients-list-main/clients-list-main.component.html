@@ -1,0 +1,24 @@
+@if (loading) {
+  <div class="loading-container">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+} @else {
+  @if (!isMobile) {
+    <app-clients-table
+      [customers]="customers"
+      [filter]="filter"
+      (view)="onView($event)"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    />
+  } @else {
+    <app-clients-card-list
+      [customers]="customers"
+      [filter]="filter"
+      [isMobile]="isMobile"
+      (view)="onView($event)"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    />
+  }
+}

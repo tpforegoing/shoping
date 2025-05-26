@@ -1,0 +1,30 @@
+<div class="card-grid">
+    @for (price of prices; track price.id) {
+      <mat-card class="price-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>paid</mat-icon>
+          <mat-card-title [innerHTML]="price.value | highlight : filter">грн</mat-card-title>
+          <mat-card-subtitle [innerHTML]="getProductTitle(price) | highlight: filter"></mat-card-subtitle>
+        </mat-card-header>
+  
+        <mat-card-content>
+          <p><strong>Дата початку:</strong> {{ formatDate(price.valid_from) }}</p>
+          <p><strong>Дата закінчення:</strong> {{ price.valid_to ? formatDate(price.valid_to) : '—'  }}</p>
+          <p><strong>Статус:</strong> <span [class.active-price]="price.is_active">{{ price.is_active ? 'Активна' : 'Неактивна' }}</span></p>
+          <p *ngIf="price.description"><strong>Опис:</strong> <span [innerHTML]="price.description | highlight: filter"></span></p>
+        </mat-card-content>
+  
+        <mat-card-actions class="card-actions">
+          <button mat-icon-button aria-label="Edit icon" color="primary" (click)="onEdit(price)">
+              <mat-icon color="primary">edit</mat-icon>
+          </button>
+          <!-- <button mat-stroked-button color="primary" (click)="onEdit(price)">Редагувати</button> -->
+          <span class="spacer"></span>
+          <!-- <button mat-stroked-button class="delete-btn" (click)="onDelete(price)">Видалити</button> -->
+          <button mat-icon-button class="delete-btn" aria-label="Delete icon" (click)="onDelete(price)">
+              <mat-icon >delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>

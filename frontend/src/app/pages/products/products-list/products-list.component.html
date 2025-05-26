@@ -1,0 +1,31 @@
+<div class="product-layout-container">
+    <app-products-header
+      [filter]="filter()"
+      (filterChange)="onFilterChanged($event)"
+      [isMobile]="isMobile()"
+      (add)="onAdd()"
+    />
+    <div class="product-main-scroll">
+        <app-products-list-main
+            [products]="products_all()"
+            [isMobile]="isMobile()"
+            [filter]="filter()"
+            [loading]="loading()"
+            (view)="onView($event)"
+            (edit)="onEdit($event)"
+            (delete)="onDelete($event)"
+            (addToCart)="onAddToCart($event)"
+            (loadMore)="onLoadMore()"
+            (loadPrevious)="onLoadMorePrevious()"
+        />
+    </div>
+
+    <app-products-footer
+      class="product-footer"
+      [total]="total()"
+      [isMobile]="isMobile()"
+      [active_page]="page()"
+      (pageChange)="onPageChange($event)"
+      (loadNext)="onLoadNext()"
+    />
+  </div>

@@ -1,0 +1,29 @@
+<div class="clients-layout-container">
+  <app-clients-header
+    [filter]="query().filter || ''"
+    (filterChange)="onFilterChanged($event)"
+    [isMobile]="isMobile()"
+    (add)="onAdd()"
+  />
+  <div class="clients-main-scroll">
+    <app-clients-list-main
+      [customers]="customers()"
+      [isMobile]="isMobile()"
+      [filter]="query().filter || ''"
+      [loading]="loading()"
+      (view)="onView($event)"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    />
+  </div>
+
+  <app-clients-footer
+    class="clients-footer"
+    [total]="total()"
+    [isMobile]="isMobile()"
+    [isLoadingMore]="isLoadingMore()"
+    [active_page]="query().page || 1"
+    (pageChange)="onPageChange($event)"
+    (loadMore)="onLoadMore()"
+  />
+</div>

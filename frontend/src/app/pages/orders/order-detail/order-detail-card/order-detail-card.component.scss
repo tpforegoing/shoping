@@ -1,0 +1,104 @@
+.order-detail-container {
+  max-width: 1024px; 
+  margin: 0 auto;
+  padding: 12px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.order-card {
+  width: 100%;
+}
+
+.detail-section {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.1rem;
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.detail-item {
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.detail-label {
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.detail-value,
+.spacer {
+  flex: 1;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+
+.total-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.total-label {
+  font-weight: 500;
+  margin-right: 16px;
+}
+
+.total-value {
+  font-weight: 700;
+}
+
+
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.status-unknown {
+  // background-color: #e0e0e0;
+  color: #f317f3;
+}
+.status-draft {
+  // background-color: #e0e0e0;
+  color: #757575;
+}
+
+.status-submitted {
+  // background-color: #bbdefb;
+  color: #1976d2;
+}
+
+.status-paid {
+  // background-color: #c8e6c9;
+  color: #4caf50;
+}
+
+.status-cancelled {
+  // background-color: #ffcdd2;
+  color: #f44336;
+}

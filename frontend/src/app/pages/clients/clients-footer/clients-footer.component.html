@@ -1,0 +1,17 @@
+<div class="footer-container">
+  @if (isMobile) {
+    @if(isLoadingMore) {
+        <div class="mobile-pagination">
+        <button mat-button (click)="loadMore.emit()">Завантажити ще</button>
+      </div>
+      }
+  } @else {
+    <mat-paginator
+      [length]="total"
+      [pageSize]="50"
+      [pageIndex]="active_page - 1"
+      (page)="onPageChange($event)"
+      aria-label="Виберіть сторінку">
+    </mat-paginator>
+  }
+</div>

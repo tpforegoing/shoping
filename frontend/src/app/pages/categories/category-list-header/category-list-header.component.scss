@@ -1,0 +1,73 @@
+@use '@angular/material' as mat;
+
+
+mat-button {
+  // === FILLED BUTTON ===
+  @include mat.button-overrides((
+    filled-container-shape: 4px,
+    filled-container-color: var(--mat-sys-primary),
+    filled-label-text-color: var(--mat-sys-on-primary),
+    filled-disabled-container-color: var(--mat-sys-on-surface),
+    filled-disabled-label-text-color: var(--mat-sys-on-surface),
+    filled-state-layer-color: var(--mat-sys-on-primary),
+    filled-disabled-state-layer-color: var(--mat-sys-on-surface-variant),
+    filled-ripple-color: var(--mat-sys-on-primary),
+  ));
+
+  // === OUTLINED BUTTON ===
+  @include mat.button-overrides((
+    outlined-label-text-color: var(--mat-sys-primary),
+    outlined-outline-color: var(--mat-sys-outline),
+    outlined-disabled-outline-color: var(--mat-sys-on-surface),
+    outlined-disabled-label-text-color: var(--mat-sys-on-surface),
+    outlined-state-layer-color: var(--mat-sys-primary),
+    outlined-disabled-state-layer-color: var(--mat-sys-on-surface-variant),
+    outlined-ripple-color: var(--mat-sys-primary),
+  ));
+
+  // === TEXT BUTTON ===
+  @include mat.button-overrides((
+    text-label-text-color: var(--mat-sys-primary),
+    text-disabled-label-text-color: var(--mat-sys-on-surface),
+    text-state-layer-color: var(--mat-sys-primary),
+    text-disabled-state-layer-color: var(--mat-sys-on-surface-variant),
+    text-ripple-color: var(--mat-sys-primary),
+  ));
+}
+  // === FAB / MINI FAB ===
+mat-fab{
+      @include mat.fab-overrides((
+    container-color: var(--mat-sys-primary-container),
+    foreground-color: var(--mat-sys-on-surface-container),
+    state-layer-color: var(--mat-sys-on-primary-container),
+    ripple-color: var(--mat-sys-on-primary-container),
+    disabled-state-container-color: var(--mat-sys-on-surface),
+    disabled-state-foreground-color: var(--mat-sys-on-surface),
+    small-container-color: var(--mat-sys-primary-container),
+    small-foreground-color: var(--mat-sys-on-surface-container),
+    small-ripple-color: var(--mat-sys-on-primary-container),
+    small-disabled-state-container-color: var(--mat-sys-on-surface),
+    small-disabled-state-foreground-color: var(--mat-sys-on-surface),
+  ));
+}
+
+.header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    height: 64px;
+    padding: 0.5rem;
+}
+.spacer {
+    flex: 1 1 auto;
+}
+
+.fab-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}

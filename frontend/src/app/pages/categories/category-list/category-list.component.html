@@ -1,0 +1,28 @@
+<div class="category-layout-container">
+    <app-category-list-header
+      [filter]="filter()"  
+      (filterChange)="onFilterChanged($event)"
+      [isMobile]="isMobile()"
+      (add)="onAdd()"
+    />
+  
+    <div class="category-main-scroll">
+      <app-category-list-main
+        [categories]="categories()"
+        [isMobile]="isMobile()"
+        [filter]="filter()"
+        [loading]="loading()"
+        (edit)="onEdit($event)" 
+        (delete)="onDelete($event)"        
+      />
+    </div>
+  
+    <app-category-list-footer
+      class="category-footer"
+      [total]="total()"
+      [isMobile]="isMobile()"
+      [active_page]="page()"   
+      (pageChange)="onPageChange($event)"
+      (loadMore)="onLoadMore()"
+    />
+  </div>

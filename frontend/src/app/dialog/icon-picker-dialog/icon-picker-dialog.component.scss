@@ -1,0 +1,18 @@
+.icon-picker-dialog {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  
+    .search-field {
+      margin-bottom: 1rem;
+    }
+  
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+      gap: 0.5rem;
+      overflow-y: auto;
+      max-height: 400px;
+    }
+  }
+  

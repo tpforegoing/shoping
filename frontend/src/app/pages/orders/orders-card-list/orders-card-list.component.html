@@ -1,0 +1,45 @@
+<div #scrollContainer class="card-grid" (scroll)="handleScroll()">
+  @for (order of orders; track order.id) {
+    <mat-card class="order-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>receipt</mat-icon>
+        <mat-card-title>
+          Замовлення #<span [innerHTML]="getNumberToString(order.id) | highlight: filter"></span>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <span [innerHTML]="order.customer.name | highlight: filter"></span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="status-badge" [class]="getStatusColor(order.status)">
+          <span [innerHTML]="getStatusLabel(order.status) | highlight: filter"></span>
+        </div>
+        <p><strong>Сума:</strong> {{ order.total_price }} грн</p>
+        <p><strong>Дата:</strong> {{ order.created | date:'medium' }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="onView(order)">
+          <mat-icon>visibility</mat-icon>
+          @if (!isMobile) {
+            <span>Переглянути</span>
+          }
+        </button>
+        <button mat-button color="accent" (click)="onEdit(order)">
+          <mat-icon>edit</mat-icon>
+          @if (!isMobile) {
+            <span>Редагувати</span>
+          }
+        </button>
+        <span class="spacer"></span>
+        <button mat-button color="warn" (click)="onDelete(order)">
+          <mat-icon>delete</mat-icon>
+          @if (!isMobile) {
+            <span>Видалити</span>
+          }
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

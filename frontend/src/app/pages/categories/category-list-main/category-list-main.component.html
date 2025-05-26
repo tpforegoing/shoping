@@ -1,0 +1,21 @@
+@if (loading) {
+  <div class="loading-container">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+} @else {
+    @if (!isMobile) {
+        <app-category-table 
+          [categories]="categories" 
+          [filter]="filter" 
+          (edit)="onEdit($event)" 
+          (delete)="onDelete($event)" 
+        />
+      } @else {
+        <app-category-card-list 
+          [categories]="categories" 
+          [filter]="filter" 
+          (edit)="onEdit($event)" 
+          (delete)="onDelete($event)" 
+        />
+      }
+    }

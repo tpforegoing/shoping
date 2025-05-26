@@ -1,0 +1,25 @@
+.product-detail-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.error-container {
+  color: red;
+  text-align: center;
+  padding: 2rem;
+}
+
+.product-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

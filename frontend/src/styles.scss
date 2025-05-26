@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+// @import "./app/themes/themes.css";
+
+@use "./app/themes/sccs/themes.scss" as *;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; 
+}
+
+body {
+  height: 100%; 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+:host {
+  // background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+  border: 1px solid var(--mat-sys-outline-variant);
+  font: var(--mat-sys-body-large);
+}
+
+mark {
+  background: yellow;
+  color: black;
+  padding: 0 2px;
+  border-radius: 2px;
+}

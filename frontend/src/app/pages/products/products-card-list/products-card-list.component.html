@@ -1,0 +1,35 @@
+<div #scrollContainer class="card-grid" (scroll)="handleScroll()">
+    @for (prod of products; track prod.id) {
+      <mat-card class="category-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>{{ getCategoryIcon(prod) }}</mat-icon>
+          <mat-card-title [innerHTML]="prod.title | highlight: filter"></mat-card-title>
+          <mat-card-subtitle >
+            <span [innerHTML]="getCategoryLabel(prod) | highlight: filter"></span>
+            <!-- <p [innerHTML]="prod.full_name | highlight: filter"></p> -->
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p><strong>Опис:</strong> {{ prod.description }}</p>
+          <p><strong>Ціна:</strong> <span [innerHTML]="prod.current_price_value | highlight: filter"></span></p>
+        </mat-card-content>
+
+        <mat-card-actions class="card-actions">
+          <button mat-icon-button aria-label="Info" (click)="onView(prod)">
+            <mat-icon>info</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Edit" (click)="onEdit(prod)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Add to cart" (click)="onAddToCart(prod)" color="primary">
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
+          <span class="spacer"></span>
+          <button mat-icon-button class="delete-btn" aria-label="Delete" (click)="onDelete(prod)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+</div>

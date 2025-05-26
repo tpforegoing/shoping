@@ -1,0 +1,71 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header class="card-header">
+      <mat-card-title>{{getProductTitle()}} </mat-card-title>
+      <mat-card-subtitle>{{ isEdit() ? 'Редагувати ціну' : 'Додати нову ціну' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+       <!-- <h2 *ngIf="product()">Продукт: {{ getProductTitle() }}</h2> -->
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Вибір продукту -->
+
+        <!-- Значення ціни -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Ціна</mat-label>
+          <input matInput type="number" formControlName="value" required>
+          <mat-error *ngIf="form.get('value')?.hasError('required')">
+            Ціна обов'язкова
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Дата початку дії -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Дата початку дії</mat-label>
+          <input matInput [matDatepicker]="validFromPicker" formControlName="valid_from" required>
+          <mat-datepicker-toggle matSuffix [for]="validFromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #validFromPicker></mat-datepicker>
+          <mat-error *ngIf="form.get('valid_from')?.hasError('required')">
+            Дата початку дії обов'язкова
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Дата закінчення дії (опціонально) -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Дата закінчення дії (опціонально)</mat-label>
+          <input matInput [matDatepicker]="validToPicker" formControlName="valid_to">
+          <mat-datepicker-toggle matSuffix [for]="validToPicker"></mat-datepicker-toggle>
+          <mat-datepicker #validToPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Активність -->
+        <mat-checkbox formControlName="is_active">Активна</mat-checkbox>
+
+        <!-- Опис -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Опис</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+          @if (error()?.message) {
+            <mat-error>
+                @if (error()?.message) {
+                    <div>Помилка зберігання!</div>
+                }             
+                @if (error()?.fieldErrors) {
+                    @for (entry of error()?.fieldErrors || {} | keyvalue; track entry.key) {
+                        <div>{{ entry.value }}</div>
+                      }
+                  }
+            </mat-error>
+          }
+        <!-- Кнопки дій -->
+        <div class="button-row">
+          <button mat-button type="button" (click)="onBack()">Скасувати</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            {{ isEdit() ? 'Зберегти' : 'Створити' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+

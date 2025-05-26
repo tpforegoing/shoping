@@ -1,0 +1,32 @@
+<div class="login-container">
+    <mat-card class="login-card">
+      <mat-card-title>Вхід до системи</mat-card-title>
+  
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Login</mat-label>
+          <input matInput formControlName="username" autocomplete="username" required>
+          <mat-error *ngIf="form.get('username')?.invalid">Введіть логін</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" autocomplete="current-password" required>
+          <mat-error *ngIf="form.get('password')?.invalid">Введіть пароль</mat-error>
+        </mat-form-field>
+  
+        <div class="spinner" *ngIf="loading$ | async">
+          <mat-spinner diameter="32"></mat-spinner>
+        </div>
+  
+        <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="form.invalid || (loading$ | async)">
+          Login
+        </button>
+  
+        <mat-error *ngIf="error$ | async as errorMsg" class="error">
+          {{ errorMsg }}
+        </mat-error>
+      </form>
+    </mat-card>
+  </div>
+  

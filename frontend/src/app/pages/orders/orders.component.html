@@ -1,0 +1,29 @@
+<div class="orders-layout-container">
+  <app-orders-header
+    [filter]="query().filter || ''"
+    [isMobile]="isMobile()"
+    (filterChange)="onFilterChanged($event)"
+    (add)="onAdd()"
+  />
+  <div class="orders-main-scroll">
+    <app-orders-list-main
+      [orders]="orders()"
+      [isMobile]="isMobile()"
+      [filter]="query().filter || ''"
+      [loading]="loading()"
+      (view)="onView($event)"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    />
+  </div>
+
+  <app-orders-footer
+    class="orders-footer"
+    [total]="total()"
+    [isMobile]="isMobile()"
+    [isLoadingMore]="isLoadingMore()"
+    [active_page]="query().page || 1"
+    (pageChange)="onPageChange($event)"
+    (loadMore)="onLoadMore()"
+  />
+</div>

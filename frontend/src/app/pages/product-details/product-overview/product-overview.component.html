@@ -1,0 +1,73 @@
+<mat-card class="overview-card">
+  <mat-card-header>
+    <mat-icon mat-card-avatar *ngIf="getCategoryIcon(product)">{{ getCategoryIcon(product) }}</mat-icon>
+    <mat-card-title>{{ product?.title }}</mat-card-title>
+    <mat-card-subtitle>{{ getCategoryFullTitle(product) }}</mat-card-subtitle>
+    <span class="spacer"></span>
+    <button mat-stroked-button color="primary" (click)="onBack()">
+      <mat-icon>arrow_back</mat-icon> Back
+    </button>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="overview-grid">
+      <!-- Column 1: Basic Info -->
+      <div class="overview-column">
+        <h3>Basic Information</h3>
+        <div class="info-item">
+          <span class="info-label"><strong>Description:</strong></span>
+          <span class="info-value">{{ product?.description || 'No description' }}</span>
+        </div>
+      </div>
+      
+      <!-- Column 2: Category Info -->
+      <div class="overview-column">
+        <h3>Category</h3>
+        <div class="info-item">
+          <span class="info-label">Title:</span>
+          <span class="info-value">{{ getCategoryName(product) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Description:</span>
+          <span class="info-value">{{ product?.category?.description || 'No description' }}</span>    
+        </div>
+        <div class="info-item">
+          <span class="info-label">Created:</span>
+          <span class="info-value">{{ formatDate(product?.category?.created) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Updated:</span>
+          <span class="info-value">{{ formatDate(product?.category?.updated) }}</span>
+        </div>
+      </div>
+      
+      <!-- Column 3: Price Info -->
+      <div class="overview-column">
+        <h3>Price Information</h3>
+        <div class="info-item">
+          <span class="info-label">Current Price:</span>
+          <span class="info-value">{{ product?.current_price_value || 'No price' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Valid From:</span>
+          <span class="info-value">{{ getValidFrom(product) }}</span>
+        </div>
+                <div class="info-item">
+          <span class="info-label">Valid To:</span>
+          <span class="info-value">{{ formatDate(product?.current_price?.valid_to) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Created:</span>
+          <span class="info-value">{{ formatDate(product?.current_price?.created) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Updated:</span>
+          <span class="info-value">{{ formatDate(product?.current_price?.updated) }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  
+  <mat-divider></mat-divider>
+  
+</mat-card>

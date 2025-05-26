@@ -1,0 +1,18 @@
+<div class="icon-picker-dialog">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Пошук іконки</mat-label>
+      <input matInput [(ngModel)]="filter" placeholder="Введіть назву">
+    </mat-form-field>
+  
+    <div class="icons-grid">
+      <button
+        mat-icon-button
+        *ngFor="let icon of filteredIcons"
+        (click)="selectIcon(icon)"
+        aria-label="icon"
+      >
+        <mat-icon>{{ icon }}</mat-icon>
+      </button>
+    </div>
+  </div>
+  

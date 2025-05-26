@@ -1,0 +1,42 @@
+<div #scrollContainer class="card-grid">
+  @for (customer of customers; track customer.id) {
+    <mat-card class="client-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>person</mat-icon>
+        <mat-card-title>
+          <span [innerHTML]="customer.code | highlight: filter"></span>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <span [innerHTML]="customer.name | highlight: filter"></span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p><strong>Телефон:</strong> {{ customer.phone_no }}</p>
+        <p><strong>Користувач:</strong> {{ customer.user?.username }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="onView(customer)">
+          <mat-icon>visibility</mat-icon>
+          @if (!isMobile) {
+            <span>Переглянути</span>
+          }
+        </button>
+        <button mat-button color="accent" (click)="onEdit(customer)">
+          <mat-icon>edit</mat-icon>
+          @if (!isMobile) {
+            <span>Редагувати</span>
+          }
+        </button>
+        <span class="spacer"></span>
+        <button mat-button color="warn" (click)="onDelete(customer)">
+          <mat-icon>delete</mat-icon>
+          @if (!isMobile) {
+            <span>Видалити</span>
+          }
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

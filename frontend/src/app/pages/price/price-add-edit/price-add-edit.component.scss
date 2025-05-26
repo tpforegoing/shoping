@@ -1,0 +1,39 @@
+@use '@angular/material' as mat;
+
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:html {
+  @include mat.card-overrides((
+    subtitle-text-color: var(--mat-sys-on-primary-container),
+    elevated-container-color: var(--mat-sys-surface-container-low),
+  ));
+}
+
+.container {
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;  
+  margin-bottom: 6px;
+}
+
+.button-row {  
+  display: flex;
+  justify-content: flex-end;  
+  gap: 10px;
+  margin-top: 12px;
+}
+
+mat-checkbox {
+  margin-bottom: 6px;
+  display: block;
+}
+
+.card-header {
+  padding: 12px 12px;
+}
+
+
+
+
+

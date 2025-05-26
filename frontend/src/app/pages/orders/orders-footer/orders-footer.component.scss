@@ -1,0 +1,24 @@
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mobile-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.page-info {
+  margin: 0 16px;
+  font-size: 14px;
+}
+
+.page-indicator {
+  margin: 16px;
+  font-size: 14px;
+}

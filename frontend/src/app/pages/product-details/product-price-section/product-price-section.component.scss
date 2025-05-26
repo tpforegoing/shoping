@@ -1,0 +1,31 @@
+.price-section-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-section-container {
+  display: flex;
+  flex-direction: column;
+  // height: 100% ;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.price-content {
+  flex: 1;
+  overflow: auto;
+  min-height: 200px;
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: rgba(0, 0, 0, 0.54);
+}

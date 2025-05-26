@@ -1,0 +1,25 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.client-card {
+  margin-bottom: 16px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+}
+
+.spacer {
+  flex: 1;
+}
+  
+.delete-btn {
+  color: var(--mat-sys-color-error);
+  border-color: var(--mat-sys-color-error);
+}

@@ -1,0 +1,64 @@
+@use '@angular/material' as mat;
+
+mat-card{
+  @include mat.card-overrides((
+    // subtitle-text-color: orange,
+    // elevated-container-color: red,
+    subtitle-text-color: var(--mat-sys-on-surface),
+    elevated-container-color: var(--mat-sys-surface-container-low),
+
+    title-text-font: var(--mat-sys-title-large-font),
+    title-text-line-height: var(--mat-sys-title-large-line-height),
+    title-text-size: var(--mat-sys-title-large-size),
+    title-text-tracking: var(--mat-sys-title-large-tracking),
+    title-text-weight: var(--mat-sys-title-large-weight),
+  
+    subtitle-text-font: var(--mat-sys-title-medium-font),
+    subtitle-text-line-height: var(--mat-sys-title-medium-line-height),
+    subtitle-text-size: var(--mat-sys-title-medium-size),
+    subtitle-text-tracking: var(--mat-sys-title-medium-tracking),
+    subtitle-text-weight: var(--mat-sys-title-medium-weight),
+  
+  
+    outlined-container-color: var(--mat-sys-surface),
+    outlined-outline-color: var(--mat-sys-outline-variant)
+  ));
+
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.category-card {
+  min-width: 200px;
+  max-width: 350px;
+  min-height: 150px;
+  display: block;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.delete-btn {
+  color: red;
+  border-color: var(--mat-sys-color-error);
+}

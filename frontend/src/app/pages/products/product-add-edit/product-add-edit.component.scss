@@ -1,0 +1,80 @@
+@use '@angular/material' as mat;
+
+mat-card{
+
+
+  @include mat.card-overrides((
+    // Загальні стилі
+    title-text-font: var(--mat-sys-title-large-font),
+    title-text-size: var(--mat-sys-title-large-size),
+    title-text-line-height: var(--mat-sys-title-large-line-height),
+    title-text-tracking: var(--mat-sys-title-large-tracking),
+    title-text-weight: var(--mat-sys-title-large-weight),
+
+    subtitle-text-font: var(--mat-sys-title-medium-font),
+    subtitle-text-size: var(--mat-sys-title-medium-size),
+    subtitle-text-line-height: var(--mat-sys-title-medium-line-height),
+    subtitle-text-tracking: var(--mat-sys-title-medium-tracking),
+    subtitle-text-weight: var(--mat-sys-title-medium-weight),
+    subtitle-text-color: var(--mat-sys-on-surface),
+
+    // Elevated (звичайні картки)
+    elevated-container-color: var(--mat-sys-surface-container-low),
+    elevated-container-shape: 12px, // border-radius
+    elevated-container-elevation: 1, // box-shadow level (Material elevation)
+
+    // Outlined (з обводкою)
+    // Фон карточки в outlined-режимі
+    outlined-container-color: var(--mat-sys-surface),
+    // Закруглення кутів (border-radius)
+    outlined-container-shape: 12px,
+    // 	Товщина обводки (в px)
+    outlined-outline-width: 1px,
+    // Колір обводки
+    outlined-outline-color: var(--mat-sys-outline-variant),
+    // 	Тінь (box-shadow) — зазвичай 0
+    outlined-container-elevation: 3
+  ));
+}
+
+
+
+.form-card {
+    width: 100%;
+    max-width: 460px;
+    border: 1px solid var(--mat-sys-outline-variant); // або #ccc
+    margin: 2rem auto;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0 0 0;
+  
+    .spacer {
+      flex: 1;
+    }
+  
+    button {
+      min-width: 100px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .form-card {
+      max-width: 95%;
+      margin: 1rem auto;
+    }
+  }

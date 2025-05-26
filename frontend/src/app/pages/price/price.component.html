@@ -1,0 +1,31 @@
+<div class="price-layout-container">
+  <app-price-header
+    [filter]="filter()"  
+    [isActiveFilter]="isActiveFilter()"
+    (filterChange)="onFilterChanged($event)"
+    (isActiveFilterChange)="onIsActiveFilterChange($event)"
+    [isMobile]="isMobile()"
+    (add)="onAdd()"
+  ></app-price-header>
+
+  <div class="price-main-scroll">
+    <app-price-list-main
+      [prices]="prices()"
+      [isMobile]="isMobile()"
+      [filter]="filter()"
+      [loading]="loading()"
+      (edit)="onEdit($event)" 
+      (delete)="onDelete($event)"        
+    ></app-price-list-main>
+  </div>
+
+  <app-price-footer
+    class="price-footer"
+    [total]="total()"
+    [isMobile]="isMobile()"
+    [isLoadingMore]="isLoadingMore()"
+    [active_page]="page()"   
+    (pageChange)="onPageChange($event)"
+    (loadMore)="onLoadMore()"
+  ></app-price-footer>
+  </div>

@@ -1,0 +1,15 @@
+.orders-layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.orders-main-scroll {
+  flex: 1;
+  overflow: auto;
+}
+
+.orders-footer {
+  flex-shrink: 0;
+}

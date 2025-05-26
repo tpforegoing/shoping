@@ -1,0 +1,57 @@
+td.mat-column-actions {
+  width: 15px;  
+  padding-right: 6px;
+}
+
+.mat-header-row, 
+.mat-header-cell {  
+    position: sticky;
+    top: 0;  
+    background: var(--mat-sys-surface);
+    z-index: 10;
+}
+
+.delete-item {
+  color: var(--mat-sys-error);}
+
+table {
+  width: 100%;
+}
+
+.mat-column-description {
+  max-width: 300px;  
+  white-space: nowrap;
+  overflow: hidden;  
+  text-overflow: ellipsis;
+}
+
+.mat-column-value {  
+    text-align: right;
+    min-width: 100px;
+}
+
+.active-price {
+  color: var(--mat-sys-primary);  
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

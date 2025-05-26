@@ -1,0 +1,36 @@
+.client-detail-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.client-card {
+  width: 100%;
+}
+
+.detail-item {
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.detail-label {
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.detail-value {
+  flex: 1;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}

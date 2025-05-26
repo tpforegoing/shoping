@@ -1,0 +1,49 @@
+<div class="order-item-form-container">
+  <h2>{{ isEditMode ? 'Редагування' : 'Додавання' }} товару в замовлення</h2>
+  
+  @if (loading || loadingProducts) {
+    <div class="loading-container">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else {
+    <form [formGroup]="orderItemForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Товар</mat-label>
+        <mat-select formControlName="product">
+          @for (product of products; track product.id) {
+            <mat-option [value]="product.id">
+              {{ product.title }} ({{ product.current_price_value }} грн)
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="orderItemForm.get('product')?.invalid && (submitAttempted || orderItemForm.get('product')?.touched)">
+          {{ getErrorMessage('product') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Кількість</mat-label>
+        <input matInput type="number" formControlName="quantity" min="1">
+        <mat-error *ngIf="orderItemForm.get('quantity')?.invalid && (submitAttempted || orderItemForm.get('quantity')?.touched)">
+          {{ getErrorMessage('quantity') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Ціна</mat-label>
+        <input matInput type="number" formControlName="price_at_time" min="0.01" step="0.01">
+        <span matTextSuffix>грн</span>
+        <mat-error *ngIf="orderItemForm.get('price_at_time')?.invalid && (submitAttempted || orderItemForm.get('price_at_time')?.touched)">
+          {{ getErrorMessage('price_at_time') }}
+        </mat-error>
+      </mat-form-field>
+      
+      <div class="form-actions">
+        <button mat-button type="button" (click)="onCancel()">Скасувати</button>
+        <button mat-raised-button color="primary" type="submit">
+          {{ isEditMode ? 'Оновити' : 'Додати' }}
+        </button>
+      </div>
+    </form>
+  }
+</div>
