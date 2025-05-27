@@ -43,7 +43,7 @@
 
 1. **Клонування репозиторію**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/tpforegoing/shoping/
    cd Shoping
    ```
 
