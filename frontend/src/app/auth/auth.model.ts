@@ -14,12 +14,13 @@ export interface UserAuthRegisterModel{
 export interface AuthToken{
     expiry: Date;
     token: string;
-    user: {'username': string, 'role': string}
+    user: {'id': number, 'username': string, 'role': string}
 }
 
 // new model user
 export class User{
     constructor(
+        public id: number,
         public username: string,
         public role: string,
         private _token: string,

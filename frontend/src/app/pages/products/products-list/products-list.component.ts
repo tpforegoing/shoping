@@ -17,6 +17,8 @@ import { Product } from '../products.model';
 import { ProductActions } from '../store/product.actions';
 import { CartActions } from '../../orders/store/cart.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { selectUser } from '../../../auth/store/auth.selectors';
+import { MANAGER } from '../../../store/store.model';
 
 
 @Component({
@@ -39,6 +41,7 @@ export class ProductsListComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   readonly products_all = this.store.selectSignal(selectProducts);
+  readonly user = this.store.selectSignal(selectUser);
   readonly filter = signal('');
   readonly page = signal(1);
   readonly loading = this.store.selectSignal(selectLoading);
@@ -164,5 +167,11 @@ export class ProductsListComponent implements OnInit {
      this.snackBar.open(`Товар "${product.title}" додано до кошика`, 'Закрити', {
        duration: 3000
      });
+   }
+
+   onCanAction(): boolean {
+    const stat = this.user()?.role === MANAGER ? true : false;
+    // console.log('onCanAction:', stat); 
+    return stat
    }
 }

@@ -33,3 +33,10 @@ export const selectCustomerError = createSelector(
   selectCustomerState,
   state => state.error
 );
+
+export const selectCustomerByUserId = (userId: number) =>
+  createSelector(
+    selectCustomers,
+    (customers) =>
+      customers?.find(customer => customer.user?.id === userId) ?? null
+);

@@ -23,7 +23,7 @@ export const authReducer = createReducer(
 
   on(AuthActions.authenticateSuccess, (state, { token, user, expiry }) => ({
     ...state,
-    user: new User(user.username, user.role, token, expiry),
+    user: new User(user.id, user.username, user.role, token, expiry),
     isAuthenticated: true,
     error: null,
     loading: false,

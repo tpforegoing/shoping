@@ -38,12 +38,14 @@
       <button mat-icon-button color="primary" (click)="onView(order)" aria-label="Переглянути замовлення">
         <mat-icon>visibility</mat-icon>
       </button>
-      <button mat-icon-button color="accent" (click)="onEdit(order)" aria-label="Редагувати замовлення">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" (click)="onDelete(order)" aria-label="Видалити замовлення">
-        <mat-icon>delete</mat-icon>
-      </button>
+      @if (isEditable(order) ){
+        <button mat-icon-button color="accent" (click)="onEdit(order)" aria-label="Редагувати замовлення">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onDelete(order)" aria-label="Видалити замовлення">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
     </td>
   </ng-container>
 

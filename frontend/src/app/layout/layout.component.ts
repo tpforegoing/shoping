@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -37,12 +37,25 @@ import { CartActions } from '../pages/orders/store/cart.actions';
   ]
 })
 export class LayoutComponent {
-  // для мобільної версії
-  isMobile = signal(false);
-  // десктоп верісія відкрити/згорнути навігацію
-  collapsed = signal(false);
+  private bp = inject(BreakpointObserver);
+  // стан режим мобільної/десктоп версії
+  readonly isMobile = signal(false);
+  // стан показати меню чи сховати
+  readonly isShow  = signal(false);
+  // стан повне меню чи іконки
+  readonly isFullMenu  = signal(false);
+  // режим виводу панелі навігаціїї в залежності від стану мобільної/десктоп версії
+  readonly sidenavMode = computed(() =>
+    this.isMobile() ? 'over' : 'side'
+  );
   // перемикання ширини панелі
-  sidenavWidth = computed(() => (this.collapsed() ? "56px" : "250px"));
+  readonly sidenavWidth = computed(() => { 
+    if (this.isMobile()) return null;
+     return this.isFullMenu() ? '250px' : '56px';
+   });
+   
+  readonly shouldShowSidenav = computed(() =>  this.isMobile() ? this.isShow() : true);
+
   // підключення сервісу для зміни теми
   themeService = inject(LayoutService);
   // тимчасові змінні
@@ -51,16 +64,20 @@ export class LayoutComponent {
   readonly usernameSignal = signal<string | null>(null);
   readonly cartItemsCount = this.store.selectSignal(selectCartItemsCount);
 
+  @HostListener('window:resize', [])
+  onResize() {
+    this.isMobile.set(window.innerWidth < 960);
+  }
+
   constructor(private breakpointObserver: BreakpointObserver) {
-    this.breakpointObserver
-    .observe([Breakpoints.Handset])
-    .subscribe(result => {
-      // this.isMobile.set();
-      // console.log(result.matches)
-      // if (result.matches) {
-        this.collapsed.set(result.matches);
-      // }
-    });
+    this.bp.observe([Breakpoints.Handset])
+          .subscribe(result =>{
+      const mobile = result.matches;
+        this.isMobile.set(mobile);
+        this.isShow.set(!mobile);   // десктоп завжди показує
+        this.isFullMenu.set(true);  // мобілюна повне, десктоп початково повне
+    })
+
     this.store.select(selectUsername).subscribe(username => {
       this.usernameSignal.set(username);
     });
@@ -69,10 +86,13 @@ export class LayoutComponent {
     this.store.dispatch(CartActions.loadCart());
   }
 
-  onMobileToggle(): void {
-
+  onToggleMenu(): void {
+    if (this.isMobile()) {
+      this.isShow.update(v => !v);
+    } else {
+      this.isFullMenu.update(v => !v);
+    }
   }
-
 
   onLogout(): void {
     this.store.dispatch(AuthActions.logout());

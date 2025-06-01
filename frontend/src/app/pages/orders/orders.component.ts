@@ -14,9 +14,11 @@ import { OrdersFooterComponent } from './orders-footer/orders-footer.component';
 import { DeleteDialogComponent } from '../../dialog/delete-dialog/delete-dialog.component';
 
 import { Order } from './orders.model';
-import { selectOrders, selectLoading, selectPagination, selectOrdersCount } from './store/orders/orders.selectors';
-import { LoadParams, QueryParams } from '../../store/store.model';
+import { LoadParams, MANAGER, QueryParams } from '../../store/store.model';
 import { OrdersActions } from './store/orders/orders.actions';
+import { selectOrders, selectLoading, selectPagination, selectOrdersCount } from './store/orders/orders.selectors';
+import { selectUser } from '../../auth/store/auth.selectors';
+
 
 @Component({
   selector: 'app-orders',
@@ -38,6 +40,7 @@ export class OrdersComponent  {
   private dialog = inject(MatDialog);
 
   //signals from NgRx
+  readonly user = this.store.selectSignal(selectUser); 
   readonly orders = this.store.selectSignal(selectOrders);
   readonly total = this.store.selectSignal(selectOrdersCount);
   readonly loading = this.store.selectSignal(selectLoading);
@@ -53,6 +56,7 @@ export class OrdersComponent  {
       ordering: raw['ordering'] || '',
     };
   });
+  
 
   isMobile = signal<boolean>(window.innerWidth < 800);
   isLoadingMore = signal<boolean>(false);
@@ -63,6 +67,7 @@ export class OrdersComponent  {
   }
 
   constructor() {
+    // завантажити данні згідно урл
     effect(() => {
       this.store.dispatch(
         OrdersActions.load({params: this.query()})
@@ -89,6 +94,10 @@ export class OrdersComponent  {
     });
   }
 
+  isAddable(): boolean {
+    const user = this.user();
+    return user !== null && user.role === MANAGER;
+  }
   onFilterChanged(filter: string): void {
     this.navigateWithParams([], {page: 1, filter: filter});
   }
@@ -132,6 +141,7 @@ export class OrdersComponent  {
   }
 
   onEdit(order: Order): void {
+    console.log('[onEdit]');
     this.navigateWithParams(['edit', order.id], {}, this.router.url);
   }
 
@@ -147,30 +157,7 @@ export class OrdersComponent  {
       .subscribe(()=>{
         this.store.dispatch( OrdersActions.delete({ id: order.id}))
     })
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.loading.set(true);
-    //     this.orderService.deleteOrder(order.id).subscribe({
-    //       next: () => {
-    //         this.loadOrders();
-    //       },
-    //       error: (error) => {
-    //         console.error('Error deleting order', error);
-    //         this.loading.set(false);
-    //       }
-    //     });
-    //   }
-    // });
+
   }
 
-  // private updateQueryParams(): void {
-  //   this.router.navigate([], {
-  //     relativeTo: this.route,
-  //     queryParams: {
-  //       page: this.page() !== 1 ? this.page() : null,
-  //       filter: this.filter() || null
-  //     },
-  //     queryParamsHandling: 'merge'
-  //   });
-  // }
 }

@@ -23,6 +23,7 @@ export class ProductsCardListComponent {
   @Input() products: Product[] = [];
   @Input() filter = '';
   @Input() isMobile = false;
+  @Input() canAction = false;
 
   @Output() view = new EventEmitter<Product>();
   @Output() edit = new EventEmitter<Product>();

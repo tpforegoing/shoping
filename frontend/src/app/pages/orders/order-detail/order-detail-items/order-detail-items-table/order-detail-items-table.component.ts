@@ -28,6 +28,7 @@ import { OrderItem } from '../../../orders.model';
 export class OrderDetailItemsTableComponent {
     @Input() items: OrderItem[] = [];
     @Input() isMobile = false;
+    @Input() isActionsEnabled = false; 
     @Output() delete = new EventEmitter<OrderItem>();
 
     displayedColumns: string[] = ['product', 'quantity', 'price', 'total','actions'];

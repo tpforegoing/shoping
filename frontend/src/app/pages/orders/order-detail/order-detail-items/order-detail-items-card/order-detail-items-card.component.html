@@ -1,0 +1,32 @@
+
+<div class="card-grid">
+  @for (item of items; track item.id) {
+    <mat-card class="order-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>receipt</mat-icon>
+        <mat-card-title>
+          <span > {{ item.product.title }} </span>
+        </mat-card-title>
+        <!-- <mat-card-subtitle>
+          <span>назва товару</span>
+        </mat-card-subtitle> -->
+      </mat-card-header>
+
+      <mat-card-content>
+        <p><strong>Кількість:</strong> {{ item.quantity }}</p>
+        <p><strong>Ціна:</strong> {{ item.price_at_time }}  грн</p>
+        <p><strong>Ітого:</strong> {{ item.total_price }}  грн</p>
+      </mat-card-content>
+
+      <mat-card-actions>    
+        <span class="spacer"></span>
+        <button mat-button color="warn" (click)="onDelete(item)">
+          <mat-icon>delete</mat-icon>
+          @if (!isMobile) {
+            <span>Видалити</span>
+          }
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

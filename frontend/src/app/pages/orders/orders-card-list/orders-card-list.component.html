@@ -26,14 +26,15 @@
             <span>Переглянути</span>
           }
         </button>
-        <button mat-button color="accent" (click)="onEdit(order)">
+        <button mat-button color="accent" (click)="onEdit(order)" [disabled]="!isEditable(order)">
           <mat-icon>edit</mat-icon>
           @if (!isMobile) {
             <span>Редагувати</span>
           }
         </button>
+      
         <span class="spacer"></span>
-        <button mat-button color="warn" (click)="onDelete(order)">
+        <button mat-button color="warn" (click)="onDelete(order)" [disabled]="!isEditable(order)">
           <mat-icon>delete</mat-icon>
           @if (!isMobile) {
             <span>Видалити</span>

@@ -2,6 +2,7 @@
     <app-products-header
       [filter]="filter()"
       (filterChange)="onFilterChanged($event)"
+      [canAction]="onCanAction()"
       [isMobile]="isMobile()"
       (add)="onAdd()"
     />
@@ -11,6 +12,7 @@
             [isMobile]="isMobile()"
             [filter]="filter()"
             [loading]="loading()"
+            [canAction]="onCanAction()"
             (view)="onView($event)"
             (edit)="onEdit($event)"
             (delete)="onDelete($event)"

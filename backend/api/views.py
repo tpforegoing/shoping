@@ -58,6 +58,7 @@ class LoginView(KnoxLoginView):
             "token": token,
             "expiry": expiry,
             "user": {
+                "id": user.id,
                 "username": user.username,
                 "role": user.role
             }

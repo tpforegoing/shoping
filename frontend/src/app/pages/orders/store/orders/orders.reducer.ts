@@ -99,6 +99,7 @@ export const ordersReducer = createReducer(
     })),
     on(OrdersActions.createSuccess, (state, { order }) => ({
         ...state,
+        loading: false,
         orders: [order, ...state.orders],
         count: state.count + 1,
     })),
@@ -119,6 +120,7 @@ export const ordersReducer = createReducer(
     })),
     on(OrdersActions.updateSuccess, (state, { order }) => ({
         ...state,
+        loading: false,
         orders: state.orders.map(o => o.id === order.id ? order : o),
         selectedOrder: state.selectedOrder?.id === order.id ? order : state.selectedOrder,
     })),
@@ -140,6 +142,7 @@ export const ordersReducer = createReducer(
     })),
     on(OrdersActions.deleteSuccess, (state, { id }) => ({
         ...state,
+        loading: false,
         orders: state.orders.filter(o => o.id !== id),
         count: state.count - 1,
         selectedOrder: state.selectedOrder?.id === id ? null : state.selectedOrder,

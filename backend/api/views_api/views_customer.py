@@ -16,7 +16,7 @@ class CustomerViewSet(GenericThingViewSet):
     }
 
     permission_classes_map = {
-        'list': [IsManager],
+        'list': [IsOwnerOrManager],
         'retrieve': [IsOwnerOrManager],
         'update': [IsOwnerOrManager],
         'partial_update': [IsOwnerOrManager],

@@ -1,9 +1,10 @@
 <!-- class="mat-elevation-z3" -->
 <mat-toolbar>
-  <button mat-icon-button
-  (click)="collapsed.set(!collapsed())">
-    <mat-icon>menu</mat-icon>
-  </button>
+    <button mat-icon-button
+      (click)="onToggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
     <!-- Title -->
   <span class="app-title">Shoping</span>
     <!--  -->
@@ -51,16 +52,17 @@
 </mat-toolbar>
 <mat-sidenav-container class="side-conteiner">
   <mat-sidenav
-      class="side-list"
-      mode="side"
-      opened
-      [style.width]="sidenavWidth()">
-    <app-sidenav [collapsed]="collapsed()"></app-sidenav>
+    *ngIf="shouldShowSidenav()"
+    [mode]="sidenavMode()"
+    [opened]="shouldShowSidenav()"
+    [style.width]="sidenavWidth() || null"
+    (closedStart)="isShow.set(false)">
+    <app-sidenav [collapsed]="!isFullMenu() && !isMobile()"></app-sidenav>
   </mat-sidenav>
-  <!--  -->
+
   <mat-sidenav-content
         class="content"
-        [style.margin-left]="!isMobile() ? sidenavWidth() : '56px'">
+        [style.margin-left]="!isMobile() ? sidenavWidth() : '0'">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

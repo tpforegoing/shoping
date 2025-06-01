@@ -29,6 +29,10 @@ export class OrdersTableComponent {
 
   displayedColumns: string[] = ['id', 'customer', 'status', 'total_price', 'actions'];
 
+  isEditable(item: Order): boolean {
+    return !['submitted', 'paid'].includes(item.status);
+  }
+  
   onView(order: Order): void {
     this.view.emit(order);
   }

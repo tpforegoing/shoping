@@ -22,6 +22,7 @@ export class ProductsListMainComponent {
   @Input() isMobile = false;
   @Input() filter = '';
   @Input() loading = false;
+  @Input() canAction = false;
 
   @Output() view = new EventEmitter<Product>();
   @Output() edit = new EventEmitter<Product>();

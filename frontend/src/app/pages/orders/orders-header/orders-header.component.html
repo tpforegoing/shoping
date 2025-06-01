@@ -14,26 +14,21 @@
         </button>
       }        
     </mat-form-field>
-    <div class="actions-container">
-      @if (!isMobile) {
-        <button 
-          mat-raised-button 
-          color="primary" 
-          (click)="onAdd()">
-            
-          <mat-icon>add</mat-icon>
-          <span>Нове замовлення</span>
-        </button>
-      } @else {
-        <button 
-          mat-icon-button 
-          color="primary" 
-          (click)="onAdd()"
-          class="isMobile">
-          <mat-icon>add</mat-icon>
-        </button>
-      }
-    </div>
-  </div>
+    
+    @if (isAddable) {
+      <div class="actions-container">
+        @if (!isMobile) {
+          <button mat-raised-button color="primary" (click)="onAdd()">
+            <mat-icon>add</mat-icon>
+            <span>Нове замовлення</span>
+          </button>
+        } @else {
+          <button mat-icon-button color="primary" (click)="onAdd()" class="isMobile">
+            <mat-icon>add</mat-icon>
+          </button>
+        }
+      </div>
+    }
+    
   
 </div>

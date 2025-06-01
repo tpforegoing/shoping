@@ -78,4 +78,8 @@ export class OrdersCardListComponent {
   getNumberToString(number: number): string {
     return number.toString();
   }
+
+  isEditable(item: Order): boolean {
+    return !['submitted', 'paid'].includes(item.status);
+  }
 }

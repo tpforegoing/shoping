@@ -38,23 +38,25 @@
       <button mat-icon-button color="primary" (click)="onAddToCart(prod)">
         <mat-icon>add_shopping_cart</mat-icon>
       </button>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Дії">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onView(prod)">
-          <mat-icon>info</mat-icon>
-          <span>Деталі</span>
+      @if (canAction) {        
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Дії">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <button mat-menu-item (click)="onEdit(prod)">
-          <mat-icon>edit</mat-icon>
-          <span>Редагувати</span>
-        </button>
-        <button mat-menu-item class="delete-item" (click)="onDelete(prod)">
-          <mat-icon color="red">delete</mat-icon>
-          <span>Видалити</span>
-        </button>
-      </mat-menu>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onView(prod)">
+            <mat-icon>info</mat-icon>
+            <span>Деталі</span>
+          </button>
+          <button mat-menu-item (click)="onEdit(prod)">
+            <mat-icon>edit</mat-icon>
+            <span>Редагувати</span>
+          </button>
+          <button mat-menu-item class="delete-item" (click)="onDelete(prod)">
+            <mat-icon color="red">delete</mat-icon>
+            <span>Видалити</span>
+          </button>
+        </mat-menu>
+      }
     </td>
   </ng-container>
 

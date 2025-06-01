@@ -11,16 +11,23 @@
           (back)="onBack()"
           (edit)="onEdit()"
         ></app-order-detail-card>
-        <mat-divider></mat-divider>
         
- 
-
-    <div class="table-section">
-     <ng-container *ngIf="selectedOrder()?.items as orderItems; else noItems">
-        <app-order-detail-items-table 
-          [items]="orderItems" 
-          (delete)="onDeleteItem($event)">
-        </app-order-detail-items-table>
+        <div class="table-section">
+          <ng-container *ngIf="selectedOrder()?.items as orderItems; else noItems">
+          @if (isMobile()) {
+              <app-order-detail-items-card 
+              [items]="orderItems" 
+              [isActionsEnabled]="isActionsEnabled"
+              (delete)="onDeleteItem($event)">
+            </app-order-detail-items-card>
+          } @else {          
+            <mat-divider></mat-divider>
+            <app-order-detail-items-table 
+              [items]="orderItems" 
+              [isActionsEnabled]="isActionsEnabled"
+              (delete)="onDeleteItem($event)">
+            </app-order-detail-items-table>
+          }
      </ng-container>
       <ng-template #noItems>
         <p class="no-items">Немає товарів у замовленні</p>

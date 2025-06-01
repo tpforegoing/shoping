@@ -16,19 +16,23 @@
         </mat-card-content>
 
         <mat-card-actions class="card-actions">
-          <button mat-icon-button aria-label="Info" (click)="onView(prod)">
-            <mat-icon>info</mat-icon>
-          </button>
-          <button mat-icon-button aria-label="Edit" (click)="onEdit(prod)">
-            <mat-icon>edit</mat-icon>
-          </button>
+          @if (canAction) {            
+            <button mat-icon-button aria-label="Info" (click)="onView(prod)">
+              <mat-icon>info</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Edit" (click)="onEdit(prod)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          }
           <button mat-icon-button aria-label="Add to cart" (click)="onAddToCart(prod)" color="primary">
             <mat-icon>add_shopping_cart</mat-icon>
           </button>
-          <span class="spacer"></span>
-          <button mat-icon-button class="delete-btn" aria-label="Delete" (click)="onDelete(prod)">
-            <mat-icon>delete</mat-icon>
-          </button>
+          @if (canAction) {            
+            <span class="spacer"></span>
+            <button mat-icon-button class="delete-btn" aria-label="Delete" (click)="onDelete(prod)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
         </mat-card-actions>
       </mat-card>
     }

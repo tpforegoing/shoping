@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 export class ProductsHeaderComponent {
   @Input() filter = '';
   @Input() isMobile = false;
+  @Input() canAction = false;
   @Output() filterChange = new EventEmitter<string>();
   @Output() add = new EventEmitter<void>();
 

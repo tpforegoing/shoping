@@ -56,4 +56,8 @@ export class OrderDetailCardComponent {
         default: return '';
         }
     }
+   isEditable(order: Order| null): boolean {
+    if (!order) return false;
+    return !['submitted', 'paid'].includes(order.status);
+  }
 }

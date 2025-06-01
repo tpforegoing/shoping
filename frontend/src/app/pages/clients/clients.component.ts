@@ -146,14 +146,4 @@ private navigateWithParams(commands: any[], params: LoadParams, sourceURL?: stri
       })
   }
 
-  // private updateQueryParams(): void {
-  //   this.router.navigate([], {
-  //     relativeTo: this.route,
-  //     queryParams: {
-  //       page: this.page() !== 1 ? this.page() : null,
-  //       filter: this.filter() || null
-  //     },
-  //     queryParamsHandling: 'merge'
-  //   });
-  // }
 }

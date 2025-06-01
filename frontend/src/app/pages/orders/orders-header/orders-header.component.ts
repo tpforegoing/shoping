@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 export class OrdersHeaderComponent {
   @Input() filter = '';
   @Input() isMobile = false;
+  @Input() isAddable = false;
   @Output() filterChange = new EventEmitter<string>();
   @Output() add = new EventEmitter<void>();
 

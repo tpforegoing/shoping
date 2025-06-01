@@ -23,3 +23,13 @@ export const selectSelectedOrder = createSelector(
     selectOrdersState,
     (state) => state.selectedOrder
 );
+
+export const selectOrderById = (id: number) =>
+  createSelector(
+    selectOrdersState,
+    (state) => 
+      // 1. Пошук у масиві orders[] (може бути після load/loadMore)
+      state.orders.find(o => o.id === id) ||
+      // 2. Якщо немає — перевірити selectedOrder (може бути після details)
+      (state.selectedOrder?.id === id ? state.selectedOrder : null)
+);

@@ -32,6 +32,7 @@ export class ProductsTableComponent implements OnChanges {
 
   @Input() products: Product[] = [];
   @Input() filter = '';
+  @Input() canAction = false;
 
   @Output() view = new EventEmitter<Product>();
   @Output() edit = new EventEmitter<Product>();
@@ -61,8 +62,6 @@ export class ProductsTableComponent implements OnChanges {
       switch(property) {
         case 'category':
           return this.getCategoryLabel(item);
-        // case 'price':
-        //   return item.current_price?.value || 0;
         default:
           return (item as any)[property];
       }
@@ -82,7 +81,6 @@ export class ProductsTableComponent implements OnChanges {
   }
 
   onAddToCart(product: Product) {
-    // Також емітимо подію для батьківського компонента
     this.addToCart.emit(product);
   }
 
@@ -90,13 +88,13 @@ export class ProductsTableComponent implements OnChanges {
     if (typeof prod.category === 'object' && prod.category !== null) {
       return prod.category.full_title;
     }
-    return String(prod.category || ''); // або '' якщо треба глушити числа
+    return String(prod.category || ''); // 
   }
 
   getCategoryIcon(prod: Product): string {
     if (typeof prod.category === 'object' && prod.category !== null) {
       return prod.category.icon ?? '';
     }
-    return ''; // або '' якщо треба глушити числа
+    return ''; //
   }
 }

@@ -2,6 +2,7 @@
   <app-orders-header
     [filter]="query().filter || ''"
     [isMobile]="isMobile()"
+    [isAddable]="isAddable()"
     (filterChange)="onFilterChanged($event)"
     (add)="onAdd()"
   />
