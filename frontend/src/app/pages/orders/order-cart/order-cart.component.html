@@ -52,7 +52,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Виберіть клієнта</mat-label>
               <mat-select [(ngModel)]="selectedCustomerId">
-                @for (customer of customers; track customer.id) {
+                @for (customer of customers(); track customer.id) {
                   <mat-option [value]="customer.id">
                     {{ customer.name }} ({{ customer.code }})
                   </mat-option>

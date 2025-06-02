@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, HostListener, inject, signal } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OrderService } from '../orders.service';
-import { Order, OrderItem } from '../orders.model';
-import { Store } from '@ngrx/store';
-import { toSignal } from '@angular/core/rxjs-interop';
+
+import { OrderItem } from '../orders.model';
 import { LoadParams, QueryParams } from '../../../store/store.model';
-import { map, Observable } from 'rxjs';
 import { selectError, selectLoading, selectParams, selectSelectedOrder } from '../store/orders/orders.selectors';
 import { OrdersActions } from '../store/orders/orders.actions';
 import { OrderDetailCardComponent } from './order-detail-card/order-detail-card.component';
@@ -78,7 +79,6 @@ export class OrderDetailComponent  {
   constructor() { 
     effect(() => {
       const idOrder = this.id();
-      // console.log('Завантаження товарів для замовлення ID:', idOrder);
       if (idOrder !== null) {
         this.store.dispatch(
           OrdersActions.loadWithItems({ id: idOrder})

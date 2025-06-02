@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Order, OrderResponse, OrderSubmit, OrderItem, OrderItemSubmit } from './orders.model';
+import { Order, OrderResponse, OrderSubmit, OrderItem, OrderItemSubmit, OrderItemsSubmit } from './orders.model';
 import { LoadParams, QueryParams } from '../../store/store.model';
 import { environment } from '../../../../environments/environment';
 
@@ -18,7 +18,7 @@ export class OrderService {
     return this.http.get<OrderResponse>(this.API_URL, { params: queryParams as any, withCredentials: true });
   }
 
-  createOrder(data: Partial<OrderSubmit>): Observable<Order> {
+  createOrder(data: OrderItemsSubmit): Observable<Order>  {
     return this.http.post<Order>(this.API_URL, data);
   }
 
@@ -34,8 +34,8 @@ export class OrderService {
     return this.http.get<Order>(`${this.API_URL}${id}/`, { withCredentials: true });
   }
   // отримати замовлення по статусу
-  getOrderByStatus(status: string): Observable<Order> {
-    return this.http.get<Order>(`${environment.apiUrl}/api/orders/?status=${status}`, { withCredentials: true });
+  getOrderByStatus(status: string): Observable<OrderResponse> {
+    return this.http.get<OrderResponse>(`${environment.apiUrl}/api/orders/?status=${status}`, { withCredentials: true });
   } 
 
   // Order Items

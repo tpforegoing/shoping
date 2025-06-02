@@ -33,3 +33,21 @@ export const selectOrderById = (id: number) =>
       // 2. Якщо немає — перевірити selectedOrder (може бути після details)
       (state.selectedOrder?.id === id ? state.selectedOrder : null)
 );
+
+export const selectOrdersByStatus = (status: string) =>
+  createSelector(
+    selectOrders,
+    (orders) => orders.filter(order => order.status === status)
+);
+
+export const selectSelectedOrderTotal = createSelector(
+  selectSelectedOrder,
+  (order) => {
+    if (!order || !order.items) return 0;
+
+    return order.items.reduce((total, item) => {
+      const price = parseFloat(item.price_at_time) || 0;
+      return total + price * item.quantity;
+    }, 0);
+  }
+);

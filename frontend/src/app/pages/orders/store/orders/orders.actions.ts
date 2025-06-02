@@ -1,12 +1,12 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Order, OrderResponse, OrderSubmit } from '../../orders.model';
+import { Order, OrderItem, OrderItemSubmit, OrderResponse, OrderSubmit } from '../../orders.model';
 import { ErrorMessage, LoadParams, QueryParams } from '../../../../store/store.model';
+import { CartItem } from '../cart.model';
 
 
 export const OrdersActions = createActionGroup({
   source: 'Orders',
   events: {
-      // Пагінація
     'Load': props<{ params: LoadParams }>(),
     'Load Success': props<{ response: OrderResponse }>(),
     'Load More': props<{ params: LoadParams }>(),
@@ -21,6 +21,10 @@ export const OrdersActions = createActionGroup({
     'Load With Items Success': props<{ order: Order }>(),
     'Load With items Failure': props<{ error: ErrorMessage }>(),
 
+    'Load By Status': props<{ status: string}>(),
+    'Load By Status Success': props<{ response: OrderResponse }>(),
+    'Load By Status Failure': props<{ error: ErrorMessage }>(),
+
     'Create': props<{ order: Partial<OrderSubmit> }>(),
     'Create Success': props<{ order: Order  }>(),
     'Create Failure': props<{ error: ErrorMessage }>(),
@@ -32,6 +36,10 @@ export const OrdersActions = createActionGroup({
     'Delete': props<{ id: number }>(),
     'Delete Success': props<{ id: number }>(),
     'Delete Failure': props<{ error: ErrorMessage }>(),
+
+    'Create With Items': props<{ customerId: number; items: CartItem[] }>(),
+    'Create With Items Success': props<{ order: Order }>(),
+    'Create With Items Failure': props<{ error: ErrorMessage }>(),
 
     'Back': props<{ queryParams?: QueryParams }>(),
     'Reset': emptyProps(),

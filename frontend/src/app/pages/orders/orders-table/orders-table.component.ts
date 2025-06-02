@@ -15,7 +15,7 @@ import { HighlightPipe } from '../../../share/highlight.pipe';
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    HighlightPipe
+    HighlightPipe,
   ],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
@@ -27,10 +27,10 @@ export class OrdersTableComponent {
   @Output() edit = new EventEmitter<Order>();
   @Output() delete = new EventEmitter<Order>();
 
-  displayedColumns: string[] = ['id', 'customer', 'status', 'total_price', 'actions'];
+  displayedColumns: string[] = ['id', 'customer', 'status', 'total_price', 'updated', 'actions'];
 
   isEditable(item: Order): boolean {
-    return !['submitted', 'paid'].includes(item.status);
+    return !['paid'].includes(item.status);
   }
   
   onView(order: Order): void {

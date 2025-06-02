@@ -3,20 +3,27 @@ from rest_framework.decorators import action            #type: ignore
 from rest_framework.response import Response            #type: ignore 
 from rest_framework.exceptions import PermissionDenied  #type: ignore
 from rest_framework import filters                      #type: ignore
-from rest_framework.exceptions import ValidationError   #type: ignore
+from rest_framework.exceptions import ValidationError, NotFound   #type: ignore
 # from rest_framework import status                       #type: ignore
 
 from api.models.roles import MANAGER
 from api.services.permissions import IsOwnerOrManager
 from api.models.order import Order, OrderItem
 from api.models.customer import Customer
-from api.serializers.order import OrderItemEditSerializer, OrderItemSerializer, OrderSerializer, OrderWithItemsSerializer
+from api.serializers.order import *
 from api.views_api.views_thing import GenericThingViewSet
 
 class OrderViewSet(GenericThingViewSet):
     model = Order
     serializer_class = OrderSerializer
-
+    serializer_map = {
+        'list': OrderSerializer,
+        'retrieve': OrderWithItemsSerializer,
+        'create': OrderWithItemsCreateSerializer,
+        'update': OrderWithItemsSerializer,
+        'partial_update': OrderWithItemsSerializer,
+        'destroy': OrderSerializer
+    }
     permission_classes_map = {
         'list': [IsOwnerOrManager],
         'retrieve': [IsOwnerOrManager],
@@ -101,24 +108,6 @@ class OrderViewSet(GenericThingViewSet):
         """
         serializer.save(updated_by=self.request.user)
 
-    @action(detail=True, methods=["get"], url_path="items", permission_classes=[IsAuthenticated])
-    def retrieve_items(self, request, pk=None):
-        """
-        Отримує перелік товарів, пов’язаних із конкретним замовленням.
-
-        Ця дія захищена класом дозволів IsAuthenticated і доступна через 
-        GET-запит за шляхом URL items.
-        Замовлення отримується з перевіркою дозволу IsOwnerOrManager, 
-        що гарантує доступ лише власнику або менеджеру.
-
-        Повертає:
-        Response: Серіалізоване представлення замовлення разом із його товарами.
-        """
-
-        order = self.get_object()  # має пройти перевірку IsOwnerOrManager
-        serializer = OrderWithItemsSerializer(order)
-        return Response(serializer.data)
-
     def validate_order_editable(self, order_id):
         """
         Перевіряє, чи може бути змінено замовлення з даним ID.
@@ -133,7 +122,8 @@ class OrderItemViewSet(GenericThingViewSet):
     model = OrderItem
     serializer_class = OrderItemSerializer
     serializer_map = {
-
+        'list': OrderWithItemsSerializer,
+        'retrieve': OrderItemSerializer,
         'create': OrderItemEditSerializer,
         'update': OrderItemEditSerializer,
         'partial_update': OrderItemEditSerializer,
@@ -151,6 +141,23 @@ class OrderItemViewSet(GenericThingViewSet):
 
     filterset_fields = ['order', 'product']
     search_fields = ['product__title']
+
+    def list(self, request, order_id=None, *args, **kwargs):
+        """
+        Повертає одне замовлення з повним переліком товарів.
+        """
+        try:
+            order = Order.objects.select_related('customer__user').prefetch_related(
+                'items__product__category'
+            ).get(id=order_id)
+        except Order.DoesNotExist:
+            raise NotFound("Замовлення не знайдено.")
+
+        if not IsOwnerOrManager().has_object_permission(request, self, order):
+            raise PermissionDenied("Недостатньо прав доступу.")
+        
+        serializer = OrderWithItemsSerializer(order, context={'request': request})
+        return Response(serializer.data)
 
     def get_queryset(self):
         """

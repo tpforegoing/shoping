@@ -39,7 +39,13 @@ export interface OrderSubmit {
 }
 
 export interface OrderItemSubmit {
-    order: number;
+    order?: number;
     product: number;
     quantity: number;
+}
+
+export interface OrderItemsSubmit {
+    customer: number;
+    status: 'draft' | 'submitted' | 'paid' | 'cancelled';
+    items: OrderItemSubmit[];
 }

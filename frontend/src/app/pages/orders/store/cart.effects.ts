@@ -18,36 +18,35 @@ export class CartEffects {
   /* Закоментовані ефекти для тимчасового відключення */
 
   // Завантаження кошика з localStorage
-  // loadCart$ = createEffect(() => this.actions$.pipe(
-  //   ofType(CartActions.loadCart),
-  //   mergeMap(() => {
-  //     try {
-  //       const cartJson = localStorage.getItem('cart');
-  //       const items: CartItem[] = cartJson ? JSON.parse(cartJson) : [];
-  //       console.log('[load Card] effect', items);
-  //       return of(CartActions.loadCartSuccess({ items }));
-  //     } catch (error) {
-  //       console.log('Помилка завантаження кошика', error);
-  //       return of(CartActions.loadCartFailure({ error: 'Помилка завантаження кошика' }));
-  //     }
-  //   })
-  // ));
+  loadCart$ = createEffect(() => this.actions$.pipe(
+    ofType(CartActions.loadCart),
+    mergeMap(() => {
+      try {
+        const cartJson = localStorage.getItem('cart');
+        const items: CartItem[] = cartJson ? JSON.parse(cartJson) : [];
+        return of(CartActions.loadCartSuccess({ items }));
+      } catch (error) {
+        // console.log('Помилка завантаження кошика', error);
+        return of(CartActions.loadCartFailure({ error: 'Помилка завантаження кошика' }));
+      }
+    })
+  ));
 
   // Збереження кошика в localStorage при зміні
-  // saveCart$ = createEffect(() => this.actions$.pipe(
-  //   ofType(
-  //     CartActions.saveCart
-  //   ),
-  //   withLatestFrom(this.store.select(selectCartItems)),
-  //   tap(([action, items]) => {
-  //     try {
-  //       console.log('[save Cart] effect', items);
-  //       localStorage.setItem('cart', JSON.stringify(items));
-  //     } catch (error) {
-  //       console.error('Помилка збереження кошика', error);
-  //     }
-  //   })
-  // ), { dispatch: false });
+  saveCart$ = createEffect(() => this.actions$.pipe(
+    ofType(
+      CartActions.saveCart
+    ),
+    withLatestFrom(this.store.select(selectCartItems)),
+    tap(([action, items]) => {
+      try {
+        // console.log('[save Cart] effect', items);
+        localStorage.setItem('cart', JSON.stringify(items));
+      } catch (error) {
+        console.error('Помилка збереження кошика', error);
+      }
+    })
+  ), { dispatch: false });
 
   // Показ повідомлення при додаванні товару
   showAddNotification$ = createEffect(() => this.actions$.pipe(
@@ -69,30 +68,30 @@ export class CartEffects {
     })
   ), { dispatch: false });
 
-  // loadDraft$ = createEffect(() =>
-    // this.actions$.pipe(
-    //   ofType(CartActions.loadDraftOrder),
-    //   switchMap(({ customerId }) =>
-    //     this.orderService.getDraftOrder().pipe(
-    //       map(order => CartActions.loadDraftOrderSuccess({ order })),
-    //       catchError(error => of(CartActions.loadDraftOrderFailure({ error })))
-    //     )
-    //   )
-    // )
-  // );
-
-  createDraft$ = createEffect(() =>
+  triggerSaveCart$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CartActions.loadDraftOrderFailure),
-      // filter(error => error.includes('not found')), // або статус 404
-      // withLatestFrom(this.store.select(selectCustomerId)),
-      // switchMap(([_, customerId]) =>
-      //   this.orderService.createDraftOrder(customerId).pipe(
-      //     map(order => CartActions.createDraftOrderSuccess({ order })),
-      //     catchError(error => of(CartActions.createDraftOrderFailure({ error })))
-      //   )
-      // )
+      ofType(
+        CartActions.addItem,
+        CartActions.removeItem,
+        CartActions.updateQuantity
+      ),
+      map(() => CartActions.saveCart())
     )
+  );
+
+  clearCart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CartActions.clearCart),
+      tap(() => {
+        try {
+          localStorage.removeItem('cart');
+          // console.log('[clear Cart] effect → localStorage очищено');
+        } catch (error) {
+          console.error('Помилка очищення кошика', error);
+        }
+      })
+    ),
+    { dispatch: false }
   );
 /*  */
 }

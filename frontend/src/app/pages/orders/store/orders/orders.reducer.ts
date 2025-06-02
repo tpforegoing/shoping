@@ -68,6 +68,31 @@ export const ordersReducer = createReducer(
             fieldErrors: error.fieldErrors ?? {},
         },
     })),
+    // перелік замовлень по статусу
+    on(OrdersActions.loadByStatus, (state) => ({
+        ...state,
+        loading: true,
+        error: null,
+    })),
+    on(OrdersActions.loadByStatusSuccess, (state, { response }) => ({
+        ...state,
+        orders: response.results,
+        count: response.count,
+        next: response.next,
+        previous: response.previous,
+        loading: false,
+        error: null
+    })),
+    on(OrdersActions.loadByStatusFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error: {
+                    source: ACTION_LIST,
+                    message: error.message,
+                    fieldErrors: error.fieldErrors ?? {}
+                },
+    })),
+
     // Замовлення з переліком продуктів
     on(OrdersActions.loadWithItems, (state) => ({
         ...state,
@@ -156,6 +181,30 @@ export const ordersReducer = createReducer(
             fieldErrors: error.fieldErrors ?? {},
         },
     })),
+
+    // Додавання позицій в кошик
+    on(OrdersActions.createWithItems, (state) => ({
+        ...state,
+        loading: true,
+        error: null
+    })),
+    on(OrdersActions.createWithItemsSuccess, (state, { order }) => ({
+        ...state,
+        selectedOrder: order,
+        orders: [order, ...state.orders], // якщо хочеш додати до списку
+        loading: false
+    })),
+    on(OrdersActions.createWithItemsFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error: {
+            source: ACTION_CREATE,
+            message: error.message,
+            fieldErrors: error.fieldErrors ?? {},
+        },
+    })),
+
+    
     // Reset
     on(OrdersActions.reset, () => initialOrdersState)
 );

@@ -30,8 +30,8 @@ class CustomerViewSet(GenericThingViewSet):
     def get_queryset(self):
         user = self.request.user
         if user.role == MANAGER:
-            return super().get_queryset()
-        return self.model.objects.filter(user=user)
+            return super().get_queryset().order_by('id')
+        return self.model.objects.filter(user=user).order_by('id')
 
     def perform_create(self, serializer):
         # тільки менеджер створює → user передається з фронту

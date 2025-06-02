@@ -8,7 +8,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { APP_FEATURE_STATES } from './store/app.state';
 import { authInterceptor } from './auth/auth.interceptor';
-
+import { LOCALE_ID } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects(),
     ...APP_FEATURE_STATES, // feature reducers + effects
     provideRouter(routes), 
+    { provide: LOCALE_ID, useValue: 'uk-UA' },
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })]
 };

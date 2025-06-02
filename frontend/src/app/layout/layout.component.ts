@@ -70,14 +70,16 @@ export class LayoutComponent {
   }
 
   constructor(private breakpointObserver: BreakpointObserver) {
+
     this.bp.observe([Breakpoints.Handset])
           .subscribe(result =>{
+      console.log('isMobile', result.matches);
       const mobile = result.matches;
         this.isMobile.set(mobile);
         this.isShow.set(!mobile);   // десктоп завжди показує
         this.isFullMenu.set(true);  // мобілюна повне, десктоп початково повне
     })
-
+    
     this.store.select(selectUsername).subscribe(username => {
       this.usernameSignal.set(username);
     });

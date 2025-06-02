@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, forkJoin, map, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -11,6 +11,7 @@ import { ACTION_CREATE,
         ACTION_DETAILS, 
         ACTION_LIST, 
         ACTION_UPDATE } from '../../../../store/store.model';
+import { OrderItemsSubmit } from '../../orders.model';
 
 @Injectable()
 export class OrdersEffects {
@@ -66,12 +67,32 @@ export class OrdersEffects {
     )
   );
 
+  loadByStatus$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrdersActions.loadByStatus),
+      switchMap(({ status }) =>
+        this.service.getOrderByStatus(status).pipe(
+          map(response => OrdersActions.loadByStatusSuccess({ response })),
+          catchError(error =>
+            of(OrdersActions.loadByStatusFailure({
+              error: {
+                source: ACTION_LIST, message: 
+                error.message, 
+                fieldErrors: error.error 
+              },
+            }))
+          )
+        )
+      )
+    )
+  );
+
   loadWithItems$ = createEffect(() =>
     this.actions$.pipe(
         ofType(OrdersActions.loadWithItems),
         switchMap(({ id }) =>
         this.service.getOrderItems(id).pipe(
-            // tap(items => console.log('Lod items:',items)),
+            // tap(items => console.log('Log order:',items)),
             map(order => OrdersActions.detailsSuccess({ order })),
             catchError((error) =>
             of(OrdersActions.loadWithItemsFailure({
@@ -87,22 +108,21 @@ export class OrdersEffects {
     )
   );
 
-
-  create$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(OrdersActions.create),
-      switchMap(({ order }) =>
-        this.service.createOrder(order).pipe(
-          map(order => OrdersActions.createSuccess({ order })),
-          catchError(error =>
-            of(OrdersActions.createFailure({
-              error: { source: ACTION_CREATE, message: error.message, fieldErrors: error.error }
-            }))
-          )
-        )
-      )
-    )
-  );
+  // create$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(OrdersActions.create),
+  //     switchMap(({ order }) =>
+  //       this.service.createOrder(order).pipe(
+  //         map(order => OrdersActions.createSuccess({ order })),
+  //         catchError(error =>
+  //           of(OrdersActions.createFailure({
+  //             error: { source: ACTION_CREATE, message: error.message, fieldErrors: error.error }
+  //           }))
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
 
   update$ = createEffect(() =>
     this.actions$.pipe(
@@ -135,6 +155,33 @@ export class OrdersEffects {
       )
     )
   );
+
+createWithItems$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(OrdersActions.createWithItems),
+    switchMap(({ customerId, items }) => {
+      const payload: OrderItemsSubmit = {
+      customer: customerId,
+      status: 'submitted',
+      items: items.map(item => ({
+        product: item.product.id,
+        quantity: item.quantity
+      }))
+    };
+
+    return this.service.createOrder(payload).pipe(
+      map(order => OrdersActions.createWithItemsSuccess({ order })),
+      catchError(error => of(OrdersActions.createWithItemsFailure({
+        error: {
+          source: ACTION_CREATE,
+          message: error.message,
+          fieldErrors: error.error
+        }
+      })))
+    );
+    })
+  )
+);
   
   back$ = createEffect(() =>
     this.actions$.pipe(
@@ -148,4 +195,6 @@ export class OrdersEffects {
             }
      })),
   );
+  
+
 }
