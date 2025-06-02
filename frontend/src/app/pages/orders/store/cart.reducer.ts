@@ -108,5 +108,30 @@ export const cartReducer = createReducer(
       loading: false,
       error
     };
-  })
+  }),
+
+  on(CartActions.loadDraftOrder, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+
+  on(CartActions.loadDraftOrderSuccess, (state, { order }) => ({
+    ...state,
+    items: (order.items ?? []).map(item => ({
+      id: item.id,
+      product: item.product,
+      quantity: item.quantity,
+      price: item.price_at_time,
+    })),
+    loading: false,
+    error: null,
+  })),
+
+  on(CartActions.loadDraftOrderFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  })),
+
 );

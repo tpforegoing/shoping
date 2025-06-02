@@ -1,6 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { CartItem } from './cart.model';
 import { Product } from '../../products/products.model';
+import { Order } from '../orders.model';
 
 export const CartActions = createActionGroup({
   source: 'Cart',
@@ -15,5 +16,12 @@ export const CartActions = createActionGroup({
     'Save Cart': emptyProps(),
     'Save Cart Success': emptyProps(),
     'Save Cart Failure': props<{ error: string }>(),
+    
+    'Load Draft Order': props<{ customerId: number }>(),
+    'Load Draft Order Success': props<{ order: Order }>(),
+    'Load Draft Order Failure': props<{ error: string }>(),
+    'Create Draft Order': props<{ customerId: number }>(),
+    'Create Draft Order Success': props<{ order: Order }>(),
+    'Create Draft Order Failure': props<{ error: string }>(),
   }
 });

@@ -33,6 +33,10 @@ export class OrderService {
   getById(id: number): Observable<Order> {
     return this.http.get<Order>(`${this.API_URL}${id}/`, { withCredentials: true });
   }
+  // отримати замовлення по статусу
+  getOrderByStatus(status: string): Observable<Order> {
+    return this.http.get<Order>(`${environment.apiUrl}/api/orders/?status=${status}`, { withCredentials: true });
+  } 
 
   // Order Items
   getOrderItems(orderId: number): Observable<Order> {

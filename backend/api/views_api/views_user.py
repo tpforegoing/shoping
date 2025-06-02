@@ -10,6 +10,10 @@ class UserViewSet(ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        """
+        Returns a queryset of all users if the current user is a superuser,
+        otherwise returns a queryset containing only the current user.
+        """
         user = self.request.user
         if user.is_superuser:
             return CustomUser.objects.all()

@@ -8,6 +8,10 @@ export interface OrderItem {
     quantity: number;
     price_at_time: string;
     total_price: string;
+    created?: string;
+    updated?: string;
+    created_by?: string | null;
+    updated_by?: string | null;
 }
 
 export interface Order {

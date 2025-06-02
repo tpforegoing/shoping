@@ -45,9 +45,17 @@ class GenericThingViewSet(ModelViewSet):
         return [perm() for perm in perms]
     
     def get_queryset(self):
+        """
+        Повертає список усіх об'єктів моделі, відсортованих за id.
+        """
         return self.model.objects.all().order_by('id')
 
     def get_serializer_class(self):
+        """
+        Повертає клас серіалізатора, відповідний до дії.
+        Спочатку шукає серіалізатор в serializer_map за ключем, що відповідає дії.
+        Якщо серіалізатор не знайдений, то повертає self.serializer_class.
+        """
         action = self.action
         return self.serializer_map.get(action, self.serializer_class)
 
@@ -63,25 +71,30 @@ class GenericThingViewSet(ModelViewSet):
         )
 
     def list(self, request, *args, **kwargs):
-        # print("🔍 inside list")
-        # print("🔐 Authenticated user:", request.user)
-        # print("🔎 Query params:", request.query_params)
-        # print("📄 Page size:", getattr(self.paginator, 'page_size', '🚫 NO PAGINATOR'))
+        """
+        Повертає список об'єктів моделі, відфільтрованих за запитом та 
+        відсортованих за id.
+
+        :param request: об'єкт запиту
+        :type request: rest_framework.request.Request
+
+        :param \\*args: додаткові аргументи
+        :type \\*args: typing.Any
+
+        :param \\**kwargs: додаткові ключ-значення
+        :type \\**kwargs: typing.Any
+
+        :return: список об'єктів моделі
+        :rtype: rest_framework.response.Response
+        """
 
         queryset = self.filter_queryset(self.get_queryset())
-        # print(f"🧪 FILTERED QUERYSET: {queryset}, type: {type(queryset)}")
-
         page = self.paginate_queryset(queryset)
-        # print(f"📦 Paginator class: {getattr(self, 'pagination_class', None)}")
-        # print(f"📦 Actual paginator: {getattr(self, 'paginator', None)}")
-        if page is not None:
-            # print(f"📄 Page object: {page}")
 
+        if page is not None:
             serializer = self.get_serializer(page, many=True)
-            # print(f"✅ Returning paginated data: {len(serializer.data)} items")
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
-        # print(f"⚠️ No pagination applied, total items: {len(serializer.data)}")
         return Response(serializer.data)
 

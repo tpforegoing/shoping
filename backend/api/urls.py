@@ -27,7 +27,6 @@ order_item_detail = OrderItemViewSet.as_view({
 })
 
 urlpatterns = [
-    path('', include(router.urls)),
     path('orders/<int:order_id>/items/', order_item_list, name='orderitem-list'),
     path('orders/<int:order_id>/items/<int:pk>/', order_item_detail, name='orderitem-detail'),
     # 📦 Продукти
@@ -35,5 +34,6 @@ urlpatterns = [
     path('products/<int:pk>/', ProductViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
     # 📦💰 Ціни конкретного продукту
     path('products/<int:product_id>/prices/', ProductPriceViewSet.as_view({'get': 'list'})),
+    path('', include(router.urls)),
  
 ]
