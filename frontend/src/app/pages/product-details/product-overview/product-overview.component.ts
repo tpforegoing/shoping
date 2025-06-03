@@ -46,7 +46,17 @@ export class ProductOverviewComponent {
 
   formatDate(dateString: string | null | undefined): string {
     if (!dateString) return 'Not set';
-    return new Date(dateString).toLocaleDateString();
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'Invalid date';
+
+    return date.toLocaleString('uk-UA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
   }
   
   onBack(): void {

@@ -45,7 +45,6 @@ export class OrderCartComponent {
   private actions$ = inject(Actions);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
-  private orderService = inject(OrderService);
 
   // корзина яка зберігається у локал стор
   readonly cartItems = this.store.selectSignal(selectCartItems);
@@ -78,7 +77,7 @@ export class OrderCartComponent {
       const action = this.actions$.pipe(ofType(OrdersActions.createWithItemsSuccess));
       return action.subscribe(({ order }) => {
         this.store.dispatch(CartActions.clearCart());
-        this.router.navigate(['/orders', order.id]);
+        this.router.navigate(['/orders']);
       });
     });
   }
