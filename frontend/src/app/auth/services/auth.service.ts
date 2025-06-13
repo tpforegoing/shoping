@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { environment } from '../../../../environments/environment';
@@ -65,7 +65,6 @@ export class AuthService {
 
   consume(): string {
     const path = this.get() || '/';
-    // console.log('consume', path);
     localStorage.removeItem(this.key);
     return path;
   }

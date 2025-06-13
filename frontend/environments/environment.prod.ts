@@ -1,6 +1,6 @@
 export const environment = {
-    production: true,
-    apiUrl: 'https://your-domain.com/api',
+    production: false,
+    apiUrl: 'http://192.168.0.135',
     auth: {
       tokenStorageKey: 'auth_token'
     }

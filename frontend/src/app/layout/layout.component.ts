@@ -73,7 +73,6 @@ export class LayoutComponent {
 
     this.bp.observe([Breakpoints.Handset])
           .subscribe(result =>{
-      console.log('isMobile', result.matches);
       const mobile = result.matches;
         this.isMobile.set(mobile);
         this.isShow.set(!mobile);   // десктоп завжди показує

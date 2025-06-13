@@ -32,3 +32,6 @@ dist/
 .DS_Store
 Thumbs.db
 augment-guidelines
+
+# DB
+pg_data/

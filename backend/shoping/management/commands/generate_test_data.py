@@ -93,21 +93,21 @@ class Command(BaseCommand):
             customers.append(customer)
 
         # 5. Для кожного клієнта створити замовлення з довільними продуктами із загального пулу
-        status_list = ['draft', 'submitted', 'paid', 'cancelled']
-        for customer in customers:
-            print(f"Замовлення для {customer}")
-            for status in status_list:
-                order = Order.objects.create(customer=customer, status=status, created_by=user, updated_by=user)
-                selected_products = random.sample(products, k=3)
-                for product in selected_products:
-                    price = product.current_price
-                    OrderItem.objects.create(
-                        order=order,
-                        product=product,
-                        quantity=random.randint(1, 10),
-                        price_at_time=price.value,
-                        created_by=user,
-                        updated_by=user,
-                    )
+#        status_list = ['draft', 'submitted', 'paid', 'cancelled']
+#        for customer in customers:
+#            print(f"Замовлення для {customer}")
+#            for status in status_list:
+#                order = Order.objects.create(customer=customer, status=status, created_by=user, updated_by=user)
+#                selected_products = random.sample(products, k=3)
+#                for product in selected_products:
+#                    price = product.current_price_value
+#                    OrderItem.objects.create(
+#                        order=order,
+#                        product=product,
+#                        quantity=random.randint(1, 10),
+#                        price_at_time=price,
+#                        created_by=user,
+#                        updated_by=user,
+#                    )
 
         print("Test data generated successfully.")

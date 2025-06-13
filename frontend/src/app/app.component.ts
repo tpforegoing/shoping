@@ -24,9 +24,6 @@ import { AuthService } from './auth/services/auth.service';
     LayoutModule,
     MatSidenavModule,
     RouterOutlet,
-
-    // NavbarComponent,
-    // SidenavComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
