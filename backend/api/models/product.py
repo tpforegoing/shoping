@@ -14,7 +14,7 @@ class ProductCategory(Thing):
                                related_name='children', 
                                blank=True, null=True, 
                                verbose_name='Parent Category')
-    full_title = models.CharField(max_length=500, blank=True, db_index=True)
+    full_title = models.CharField(max_length=500, null= True, blank=True, db_index=True)
     
     def __str__(self):
         return self.full_title

@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-// import { selectAuthToken } from './store/auth.selectors';
 import { catchError } from 'rxjs/operators';
 import { AuthActions } from './store/auth.actions';
 import { throwError } from 'rxjs';
@@ -11,7 +10,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const raw = localStorage.getItem('authData');
   let token = '';
-  // console.log('raw authData:', raw);
   if (typeof raw === 'string') {
     try {
       const parsed = JSON.parse(raw);
@@ -20,7 +18,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       console.error('Некоректний JSON', e);
     }
   }
-  // console.log('AUTH:', `Token ${token}`);
 
   const authReq = req.clone({
     headers: req.headers

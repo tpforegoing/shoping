@@ -1,15 +1,15 @@
 from django.core.management.base import BaseCommand        #type: ignore
 from django.utils import timezone                          #type: ignore 
 
+import random
+from datetime import timedelta
+
 from api.models.users import CustomUser
 from api.models.customer import Customer
 from api.models.product import Product, ProductCategory, Price
 from api.models.order import Order, OrderItem
-from api.models.roles import CLIENT, MANAGER  
-
-
-import random
-from datetime import timedelta
+from api.models.roles import CLIENT, MANAGER
+from api.services.pricing import get_applicable_price  
 
 class Command(BaseCommand):
     help = "Генерує тестові дані: всі категорії/товари — від admin, а замовлення — для кожного клієнта з цих товарів."
@@ -40,14 +40,14 @@ class Command(BaseCommand):
         root_categories = []
         for i in range(6):
             root = ProductCategory.objects.create(
-                code=f'cat{i}',
+                code=f'code_{i}',
                 title=f'Категорія {i}',
                 created_by=admin,
                 updated_by=admin,
             )
             root_categories.append(root)
             for j in range(2):  # по 2 підкатегорії на кожну root
-                ProductCategory.objects.create(
+                ProductCategory.objects.get_or_create(
                     code=f'cat{i}_{j}',
                     title=f'Підкатегорія {i}-{j}',
                     parent=root,
@@ -59,8 +59,8 @@ class Command(BaseCommand):
         # 3. Продукти + ціни (усі — просто як від системи)
         all_categories = ProductCategory.objects.all()
         products = []
-        for i in range(30):
-            product = Product.objects.create(
+        for i in range(60):
+            product = Product.objects.get_or_create(
                 title=f'Товар {i}',
                 category=random.choice(all_categories),
                 created_by=admin,
@@ -68,7 +68,7 @@ class Command(BaseCommand):
             )
             Price.objects.create(
                 product=product,
-                value=random.randint(1000, 5000),
+                value=random.randint(100, 5000),
                 valid_from=timezone.now() - timedelta(days=random.randint(1, 20)),
                 is_active=True,
                 created_by=admin,
@@ -84,9 +84,9 @@ class Command(BaseCommand):
                 password='pass1234',
                 role=CLIENT
             )
-            customer = Customer.objects.create(
+            customer = Customer.objects.get_or_create(
                 user=user,
-                code=f'CUST{i:03}',
+                code=f'CUSTOMER{i:03}',
                 name=f'Клієнт {i}',
                 phone_no=f'+38050123{i:03}'
             )
@@ -100,14 +100,14 @@ class Command(BaseCommand):
                 order = Order.objects.create(customer=customer, status=status, created_by=user, updated_by=user)
                 selected_products = random.sample(products, k=3)
                 for product in selected_products:
-                    price = product.current_price
+                    price = get_applicable_price(product)
                     OrderItem.objects.create(
                         order=order,
                         product=product,
                         quantity=random.randint(1, 10),
                         price_at_time=price.value,
-                        created_by=user,
-                        updated_by=user,
+                        created_by=customer.user,
+                        updated_by=customer.user,
                     )
 
         print("Test data generated successfully.")

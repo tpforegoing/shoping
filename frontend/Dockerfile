@@ -1,6 +1,9 @@
-FROM node:20 AS builder
+# STEP 1 Build
+FROM node:20-alpine AS builder
 WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
 COPY . .
-RUN npm install && npm run build
-
-
+RUN  npm run build  -- --configuration=production

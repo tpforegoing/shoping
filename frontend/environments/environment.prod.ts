@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://your-domain.com/api',
+    apiUrl: '/',
     auth: {
       tokenStorageKey: 'auth_token'
     }
