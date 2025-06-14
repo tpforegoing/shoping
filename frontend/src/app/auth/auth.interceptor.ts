@@ -6,6 +6,7 @@ import { AuthActions } from './store/auth.actions';
 import { throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+
   const store = inject(Store);
 
   const raw = localStorage.getItem('authData');
@@ -19,12 +20,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     }
   }
 
-  const authReq = req.clone({
+  let authReq = req;
+ if(token){
+    authReq = req.clone({
     headers: req.headers
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Token ' + token),
-    withCredentials: true 
+      withCredentials: true, 
   });
+ }
 
   // return next(authReq);
   return next(authReq).pipe(

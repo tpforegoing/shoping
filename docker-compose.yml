@@ -4,8 +4,11 @@ services:
   db:
     image: postgres:17.5-alpine
     container_name: shoptest-db
+    image: postgres:17.5-alpine
+    container_name: shoptest-db
     restart: always
     env_file:
+      - .env
       - .env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
@@ -36,6 +39,8 @@ services:
       - shopnet
     ports:
       - "8000:8000"
+    networks:
+      - shopnet
     command: >
       sh -c "python manage.py makemigrations && 
              python manage.py migrate &&
@@ -53,8 +58,12 @@ services:
 
     networks:
       - shopnet
+    networks:
+      - shopnet
 
   nginx:
+    image: nginx:stable-alpine
+    container_name: shoptest-nginx
     image: nginx:stable-alpine
     container_name: shoptest-nginx
     ports:
@@ -63,6 +72,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
       - ./frontend/dist/frontend/browser:/usr/share/nginx/html
     depends_on:
+      - backend
       - frontend
       - backend
     networks:
